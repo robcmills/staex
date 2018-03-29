@@ -19,11 +19,11 @@ const initialState = {
 }
 
 export default function rootReducer(state = initialState, action) {
-  switch (action.type) {
-    // case FETCH_STUFF:
-    //   console.log('FETCH_STUFF Action')
-    //   return action;
-    default:
-      return state
-  }
+	switch (action.type) {
+		// case FETCH_STUFF:
+		//   console.log('FETCH_STUFF Action')
+		//   return action;
+		default:
+			return state
+	}
 }
