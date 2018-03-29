@@ -1,0 +1,13 @@
+.square {
+	background: antiquewhite;
+	height: 100px;
+	width: 100px;
+	position: absolute;
+	display: flex;
+}
+
+.inner-square {
+	border: 2px solid dimgray;
+	flex: 1 1 auto;
+	margin: -1px;
+}
