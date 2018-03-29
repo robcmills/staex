@@ -6,7 +6,7 @@
 
 const initialState = {
 	board: {
-		'0:0': { color: 'darkseagreen' },
+		'0:0': { color: 'darkseagreen', height: 1, token: 'lightgreen' },
 		'1:0': {},
 		'2:0': {},
 		'0:1': {},
@@ -14,7 +14,7 @@ const initialState = {
 		'2:1': {},
 		'0:2': {},
 		'1:2': {},
-		'2:2': { color: 'burlywood' },
+		'2:2': { color: 'burlywood', height: 1, token: 'bisque' },
 	},
 }
 

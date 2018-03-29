@@ -1,20 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Height from '../height/'
+import Token from '../token/'
 import './square.css'
 
-const Square = ({ file, rank, squareState }) => {
+const Square = ({ file, rank, squareState: { color, height, token } }) => {
 	console.log('render square', file, rank)
 	return (
 		<div
 			className="square"
 			style={{
-				background: squareState.color,
+				background: color,
 				left: `${file * 100}px`,
 				bottom: `${rank * 100}px`,
 			}}
 		>
-			<div className="inner-square" />
+			<div className="inner-square">
+				{height && <Height>{height}</Height>}
+				{token && <Token color={token} />}
+			</div>
 		</div>
 	)
 }
