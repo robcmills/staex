@@ -1,9 +1,5 @@
 .token {
 	border: 2px solid dimgray;
 	border-radius: 50%;
-	height: 40px;
-	width: 40px;
 	position: absolute;
-	right: 15px;
-	bottom: 15px;
 }

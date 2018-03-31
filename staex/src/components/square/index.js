@@ -5,20 +5,31 @@ import Height from '../height/'
 import Token from '../token/'
 import './square.css'
 
-const Square = ({ file, rank, squareState: { color, height, token } }) => {
+const Square = ({
+	file,
+	rank,
+	size,
+	squareState: {
+		color,
+		height,
+		token,
+	},
+}) => {
 	console.log('render square', file, rank)
 	return (
 		<div
 			className="square"
 			style={{
 				background: color,
-				left: `${file * 100}px`,
-				bottom: `${rank * 100}px`,
+				left: `${file * size}px`,
+				bottom: `${rank * size}px`,
+				height: `${size}px`,
+				width: `${size}px`,
 			}}
 		>
 			<div className="inner-square">
-				{height && <Height>{height}</Height>}
-				{token && <Token color={token} />}
+				{height && <Height squareSize={size}>{height}</Height>}
+				{token && <Token squareSize={size} color={token} />}
 			</div>
 		</div>
 	)
