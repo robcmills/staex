@@ -1,10 +1,6 @@
-// import { combineReducers } from 'redux'
-
-// export default combineReducers({
-//   stuff
-// })
-
 const initialState = {
+	activePlayer: 1,
+	activeAction: 'stack',
 	board: {
 		'0:0': { color: 'darkseagreen', height: 1, token: 'lightgreen' },
 		'1:0': {},
