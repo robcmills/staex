@@ -9,6 +9,7 @@
   "author": "robcmills",
   "license": "ISC",
   "dependencies": {
-    "create-react-app": "^1.5.2"
+    "create-react-app": "^1.5.2",
+    "lodash": "^4.17.5"
   }
 }
