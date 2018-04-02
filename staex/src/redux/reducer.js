@@ -1,8 +1,14 @@
+import { playerColors } from './constants'
+
 const initialState = {
 	activePlayer: 1,
 	activeAction: 'stack',
 	board: {
-		'0:0': { color: 'darkseagreen', height: 1, token: 'lightgreen' },
+		'0:0': {
+			color: playerColors[1].squareColor,
+			height: 1,
+			token: playerColors[1].tokenColor,
+		},
 		'1:0': {},
 		'2:0': {},
 		'3:0': {},
@@ -17,7 +23,11 @@ const initialState = {
 		'0:3': {},
 		'1:3': {},
 		'2:3': {},
-		'3:3': { color: 'burlywood', height: 1, token: 'bisque' },
+		'3:3': {
+			color: playerColors[2].squareColor,
+			height: 1,
+			token: playerColors[2].tokenColor,
+		},
 	},
 }
 

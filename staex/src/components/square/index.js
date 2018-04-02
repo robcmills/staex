@@ -1,12 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import mapStateToSelectors from '../../redux/map-state-to-selectors'
+import {
+	isValidStackTargetSelector,
+	squareStateSelector,
+} from '../../redux/selectors'
+
 import Height from '../height/'
 import Token from '../token/'
 import './square.css'
 
 const Square = ({
 	file,
+	isValidStackTarget,
 	rank,
 	size,
 	squareState: {
@@ -26,13 +33,13 @@ const Square = ({
 		}}
 	>
 		<div className="inner-square">
+			<div>{isValidStackTarget ? '1' : '0'}</div>
 			{height && <Height squareSize={size}>{height}</Height>}
 			{token && <Token squareSize={size} color={token} />}
 		</div>
 	</div>
 
-const mapStateToProps = ({ board }, { file, rank }) => ({
-	squareState: board[`${file}:${rank}`],
-})
-
-export default connect(mapStateToProps)(Square)
+export default connect(mapStateToSelectors({
+	isValidStackTarget: isValidStackTargetSelector,
+	squareState: squareStateSelector,
+}))(Square)
