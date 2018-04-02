@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import { createSelector } from 'reselect'
 
+import getAdjacentSquares from './get-adjacent-squares'
+
 export const activeActionSelector = ({ activeAction }) => activeAction
 export const activePlayerSelector = ({ activePlayer }) => activePlayer
 export const boardSelector = ({ board }) => board
@@ -37,12 +39,58 @@ export const isValidStackTargetSelector = createSelector(
 	activeActionSelector,
 	activePlayerSelector,
 	activePlayerTokensSelector,
-	squareStateFromPropsSelector,
-	(activeAction, activePlayer, activePlayerTokens, squareState) => {
-		console.log('activeAction', activeAction)
-		console.log('activePlayer', activePlayer)
-		console.log('activePlayerTokens', activePlayerTokens)
-		console.log('squareState', squareState)
-		return false
+	boardSelector,
+	squareStateSelector,
+	(state, { rank, file }) => ({ rank, file }),
+	(
+		activeAction,
+		activePlayer,
+		activePlayerTokens,
+		board,
+		squareState,
+		{ rank, file },
+	) => {
+		if (activeAction !== 'stack') {
+			return false
+		}
+
+		// Square must not be owned by active player
+		if (
+			squareState &&
+			squareState.owner &&
+			squareState.owner === activePlayer
+		) {
+
+			return false
+		}
+
+		// Square must not be occupied by opponent tokens
+		const hasTokens = squareState &&
+			squareState.tokens &&
+			squareState.tokens.length > 0
+		if (
+			hasTokens &&
+			squareState.tokens.some(owner => owner !== activePlayer)
+		) {
+			return false
+		}
+
+		// If active player has a token on the square, can stack
+		if (
+			hasTokens && squareState.tokens.includes(activePlayer)
+		) {
+			return true
+		}
+
+		// If square is adjacent to active player token,
+		// and not up a cliff, can stack
+		const adjacentSquares = getAdjacentSquares({ board, rank, file })
+		return adjacentSquares.some(({ height, tokens }) => {
+			const thisHeight = squareState.height || 0
+			if (Math.abs(height - thisHeight) > 1) {
+				return false
+			}
+			return tokens && tokens.includes(activePlayer)
+		})
 	}
 )

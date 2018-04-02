@@ -9,6 +9,7 @@ import {
 
 import Height from '../height/'
 import Tokens from '../tokens/'
+import ValidTarget from './valid-target'
 import './square.css'
 
 import { playerColors } from '../../redux/constants'
@@ -35,7 +36,7 @@ const Square = ({
 		}}
 	>
 		<div className="inner-square">
-			<div>{isValidStackTarget ? '1' : '0'}</div>
+			{isValidStackTarget && <ValidTarget squareSize={size} />}
 			{height && <Height squareSize={size}>{height}</Height>}
 			{tokens && <Tokens squareSize={size} tokens={tokens} />}
 		</div>
