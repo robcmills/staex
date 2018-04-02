@@ -1,8 +1,6 @@
 import _ from 'lodash'
 import { createSelector } from 'reselect'
 
-import { playerColors } from './constants'
-
 export const activeActionSelector = ({ activeAction }) => activeAction
 export const activePlayerSelector = ({ activePlayer }) => activePlayer
 export const boardSelector = ({ board }) => board
@@ -12,9 +10,9 @@ export const tokensSelector = createSelector(
 	board =>
 		_.reduce(
 			board,
-			(acc, { token }, key) => {
-				if(token) {
-					acc.push({ location: key, color: token })
+			(acc, { tokens }, key) => {
+				if(tokens) {
+					acc.push({ location: key, tokens })
 				}
 				return acc
 			}, [])
@@ -24,7 +22,8 @@ export const activePlayerTokensSelector = createSelector(
 	activePlayerSelector,
 	tokensSelector,
 	(activePlayer, tokens) => tokens.filter(
-		({ color }) => color === playerColors[activePlayer].tokenColor))
+		({ tokens }) => (tokens || []).includes(activePlayer))
+)
 
 export const squareStateFromPropsSelector = (state, { squareState }) => squareState
 

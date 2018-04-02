@@ -8,8 +8,10 @@ import {
 } from '../../redux/selectors'
 
 import Height from '../height/'
-import Token from '../token/'
+import Tokens from '../tokens/'
 import './square.css'
+
+import { playerColors } from '../../redux/constants'
 
 const Square = ({
 	file,
@@ -17,15 +19,15 @@ const Square = ({
 	rank,
 	size,
 	squareState: {
-		color,
+		owner,
 		height,
-		token,
+		tokens,
 	},
 }) =>
 	<div
 		className="square"
 		style={{
-			background: color,
+			background: owner ? playerColors[owner].square : undefined,
 			left: `${file * size}px`,
 			bottom: `${rank * size}px`,
 			height: `${size}px`,
@@ -35,7 +37,7 @@ const Square = ({
 		<div className="inner-square">
 			<div>{isValidStackTarget ? '1' : '0'}</div>
 			{height && <Height squareSize={size}>{height}</Height>}
-			{token && <Token squareSize={size} color={token} />}
+			{tokens && <Tokens squareSize={size} tokens={tokens} />}
 		</div>
 	</div>
 

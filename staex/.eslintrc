@@ -1,4 +1,6 @@
 {
   "extends": "react-app",
-  "indent": ["error", "tab"]
+  "rules": {
+  	"indent": ["error", "tab"]
+  }
 }

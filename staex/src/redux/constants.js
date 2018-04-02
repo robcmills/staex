@@ -1,10 +1,10 @@
 export const playerColors = {
 	1: {
-		tokenColor: 'bisque',
-		squareColor: 'burlywood',
+		token: 'bisque',
+		square: 'burlywood',
 	},
 	2: {
-		tokenColor: 'lightgreen',
-		squareColor: 'darkseagreen',
+		token: 'lightgreen',
+		square: 'darkseagreen',
 	},
 }
