@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ValidTarget = ({ squareSize }) =>
+const ValidStackTarget = ({ squareSize }) =>
 	<div
 		style={{
 			color: 'dimgray',
@@ -9,7 +9,7 @@ const ValidTarget = ({ squareSize }) =>
 			right: `${Math.floor(squareSize*0.1)}px`,
 		}}
 	>
-		o
+		s
 	</div>
 
-export default ValidTarget
+export default ValidStackTarget

@@ -12,3 +12,19 @@
 	justify-content: center;
 	margin: -2px;
 }
+
+.player1Square {
+	background-color: burlywood;
+}
+.player2Square {
+	background-color: darkseagreen;
+}
+
+.player1StackTarget:hover {
+	background-color: burlywood;
+	cursor: pointer;
+}
+.player2StackTarget:hover {
+	background-color: darkseagreen;
+	cursor: pointer;
+}

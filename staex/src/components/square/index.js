@@ -1,20 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import cn from 'classnames'
 
 import mapStateToSelectors from '../../redux/map-state-to-selectors'
 import {
+	activePlayerSelector,
 	isValidStackTargetSelector,
 	squareStateSelector,
 } from '../../redux/selectors'
 
 import Height from '../height/'
 import Tokens from '../tokens/'
-import ValidTarget from './valid-target'
+import ValidStackTarget from './valid-stack-target'
 import './square.css'
 
-import { playerColors } from '../../redux/constants'
-
 const Square = ({
+	activePlayer,
 	file,
 	isValidStackTarget,
 	rank,
@@ -26,9 +27,11 @@ const Square = ({
 	},
 }) =>
 	<div
-		className="square"
+		className={cn('square', {
+			[`player${owner}Square`]: owner,
+			[`player${activePlayer}StackTarget`]: isValidStackTarget,
+		})}
 		style={{
-			background: owner ? playerColors[owner].square : undefined,
 			left: `${file * size}px`,
 			bottom: `${rank * size}px`,
 			height: `${size}px`,
@@ -36,13 +39,14 @@ const Square = ({
 		}}
 	>
 		<div className="inner-square">
-			{isValidStackTarget && <ValidTarget squareSize={size} />}
+			{isValidStackTarget && <ValidStackTarget squareSize={size} />}
 			{height && <Height squareSize={size}>{height}</Height>}
 			{tokens && <Tokens squareSize={size} tokens={tokens} />}
 		</div>
 	</div>
 
 export default connect(mapStateToSelectors({
+	activePlayer: activePlayerSelector,
 	isValidStackTarget: isValidStackTargetSelector,
 	squareState: squareStateSelector,
 }))(Square)
