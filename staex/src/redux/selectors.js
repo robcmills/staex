@@ -23,8 +23,10 @@ export const tokensSelector = createSelector(
 export const activePlayerTokensSelector = createSelector(
 	activePlayerSelector,
 	tokensSelector,
-	(activePlayer, tokens) => tokens.filter(
-		({ tokens }) => (tokens || []).includes(activePlayer))
+	(activePlayer, tokens) => {
+		return tokens.filter(
+			token => (token.tokens || []).includes(activePlayer))
+	}
 )
 
 export const squareStateFromPropsSelector = (state, { squareState }) => squareState
@@ -91,6 +93,23 @@ export const isValidStackTargetSelector = createSelector(
 				return false
 			}
 			return tokens && tokens.includes(activePlayer)
+		})
+	}
+)
+
+export const isValidTokenMoveTargetSelector = createSelector(
+	activePlayerTokensSelector,
+	(state, { rank, file }) => ({ rank, file }),
+	(
+		activePlayerTokens,
+		{ rank, file },
+	) => {
+		return activePlayerTokens.some(token => {
+			const [x, y] = token.location.split(':')
+			if (x === `${file}` && y === `${rank}`) {
+				return false
+			}
+			return (x === `${file}`) || (y === `${rank}`)
 		})
 	}
 )

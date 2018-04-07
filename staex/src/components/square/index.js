@@ -6,18 +6,21 @@ import mapStateToSelectors from '../../redux/map-state-to-selectors'
 import {
 	activePlayerSelector,
 	isValidStackTargetSelector,
+	isValidTokenMoveTargetSelector,
 	squareStateSelector,
 } from '../../redux/selectors'
 
 import Height from '../height/'
 import Tokens from '../tokens/'
 import ValidStackTarget from './valid-stack-target'
+import ValidTokenTarget from './valid-token-target'
 import './square.css'
 
 const Square = ({
 	activePlayer,
 	file,
 	isValidStackTarget,
+	isValidTokenTarget,
 	rank,
 	size,
 	squareState: {
@@ -40,6 +43,7 @@ const Square = ({
 	>
 		<div className="inner-square">
 			{isValidStackTarget && <ValidStackTarget squareSize={size} />}
+			{isValidTokenTarget && <ValidTokenTarget squareSize={size} activePlayer={activePlayer} />}
 			{height && <Height squareSize={size}>{height}</Height>}
 			{tokens && <Tokens squareSize={size} tokens={tokens} />}
 		</div>
@@ -48,5 +52,6 @@ const Square = ({
 export default connect(mapStateToSelectors({
 	activePlayer: activePlayerSelector,
 	isValidStackTarget: isValidStackTargetSelector,
+	isValidTokenTarget: isValidTokenMoveTargetSelector,
 	squareState: squareStateSelector,
 }))(Square)

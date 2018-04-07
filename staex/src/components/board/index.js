@@ -40,11 +40,11 @@ class Board extends Component {
 					width: `${squareSize*NUM_FILES}px`,
 				}}
 			>
-			{
-				fileAndRanks.map(({ x, y }) =>
-					<Square file={x} rank={y} size={squareSize} key={`${x}-${y}`} />
-				)
-			}
+				{
+					fileAndRanks.map(({ x, y }) =>
+						<Square file={x} rank={y} size={squareSize} key={`${x}-${y}`} />
+					)
+				}
 			</div>
 		)
 	}
