@@ -89,10 +89,10 @@ export const isValidStackTargetSelector = createSelector(
 		const adjacentSquares = getAdjacentSquares({ board, rank, file })
 		return adjacentSquares.some(({ height, tokens }) => {
 			const thisHeight = squareState.height || 0
-			if ((height - thisHeight) > 1) {
+			if ((thisHeight - height) > 1) {
 				return false
 			}
-			return tokens && tokens.includes(activePlayer)
+			return tokens.length && tokens.includes(activePlayer)
 		})
 	}
 )
