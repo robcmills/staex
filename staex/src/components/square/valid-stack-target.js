@@ -1,15 +1,17 @@
 import React from 'react'
+import cn from 'classnames'
 
-const ValidStackTarget = ({ squareSize }) =>
+import Height from '../height/'
+import './valid-stack-target.css'
+
+const ValidStackTarget = ({ activePlayer, height, squareSize }) =>
 	<div
-		style={{
-			color: 'dimgray',
-			position: 'absolute',
-			top: `${Math.floor(squareSize*0.05)}px`,
-			right: `${Math.floor(squareSize*0.1)}px`,
-		}}
+		className={cn(
+			'stackTarget',
+			`player${activePlayer}StackTarget`,
+		)}
 	>
-		s
+		<Height squareSize={squareSize}>{height}</Height>
 	</div>
 
 export default ValidStackTarget

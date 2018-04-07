@@ -32,7 +32,6 @@ const Square = ({
 	<div
 		className={cn('square', {
 			[`player${owner}Square`]: owner,
-			[`player${activePlayer}StackTarget`]: isValidStackTarget,
 		})}
 		style={{
 			left: `${file * size}px`,
@@ -42,8 +41,14 @@ const Square = ({
 		}}
 	>
 		<div className="inner-square">
-			{isValidStackTarget && <ValidStackTarget squareSize={size} />}
-			{isValidTokenTarget && <ValidTokenTarget squareSize={size} activePlayer={activePlayer} />}
+			{isValidStackTarget &&
+				<ValidStackTarget
+					height={(height || 0) + 1}
+					squareSize={size}
+					activePlayer={activePlayer}
+				/>}
+			{isValidTokenTarget &&
+				<ValidTokenTarget squareSize={size} activePlayer={activePlayer} />}
 			{height && <Height squareSize={size}>{height}</Height>}
 			{tokens && <Tokens squareSize={size} tokens={tokens} />}
 		</div>
