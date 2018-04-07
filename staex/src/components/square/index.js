@@ -44,8 +44,9 @@ const Square = ({
 			{isValidStackTarget &&
 				<ValidStackTarget
 					height={(height || 0) + 1}
+					rank={rank}
+					file={file}
 					squareSize={size}
-					activePlayer={activePlayer}
 				/>}
 			{isValidTokenTarget &&
 				<ValidTokenTarget squareSize={size} activePlayer={activePlayer} />}

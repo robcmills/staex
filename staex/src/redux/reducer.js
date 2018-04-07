@@ -23,6 +23,21 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
 	switch (action.type) {
+	case 'STACK':
+		const { payload: { rank, file } }	= action
+		const key = `${file}:${rank}`
+		return {
+			...state,
+			activePlayer: state.activePlayer === 1 ? 2 : 1,
+			board: {
+				...state.board,
+				[key]: {
+					...state.board[key],
+					owner: state.activePlayer,
+					height: (state.board[key].height || 0) + 1
+				},
+			},
+		}
 	default:
 		return state
 	}
