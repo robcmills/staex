@@ -49,9 +49,13 @@ const Square = ({
 					squareSize={size}
 				/>}
 			{isValidTokenTarget &&
-				<ValidTokenTarget squareSize={size} activePlayer={activePlayer} />}
-			{height && <Height squareSize={size}>{height}</Height>}
-			{tokens && <Tokens squareSize={size} tokens={tokens} />}
+				<ValidTokenTarget
+					rank={rank}
+					file={file}
+					squareSize={size}
+				/>}
+			{height > 0 && <Height squareSize={size}>{height}</Height>}
+			{tokens && !!tokens.length && <Tokens squareSize={size} tokens={tokens} />}
 		</div>
 	</div>
 
