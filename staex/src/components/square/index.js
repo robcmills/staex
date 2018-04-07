@@ -31,7 +31,7 @@ const Square = ({
 }) =>
 	<div
 		className={cn('square', {
-			[`player${owner}Square`]: owner,
+			[`player${owner}Square`]: owner && !isValidStackTarget,
 		})}
 		style={{
 			left: `${file * size}px`,
@@ -54,8 +54,10 @@ const Square = ({
 					file={file}
 					squareSize={size}
 				/>}
-			{height > 0 && <Height squareSize={size}>{height}</Height>}
-			{tokens && !!tokens.length && <Tokens squareSize={size} tokens={tokens} />}
+			{height > 0 && !isValidStackTarget &&
+				<Height squareSize={size}>{height}</Height>}
+			{tokens && !!tokens.length &&
+				<Tokens squareSize={size} tokens={tokens} />}
 		</div>
 	</div>
 

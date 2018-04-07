@@ -98,12 +98,28 @@ export const isValidStackTargetSelector = createSelector(
 )
 
 export const isValidTokenMoveTargetSelector = createSelector(
+	activePlayerSelector,
 	activePlayerTokensSelector,
+	squareStateSelector,
 	(state, { rank, file }) => ({ rank, file }),
 	(
+		activePlayer,
 		activePlayerTokens,
+		squareState,
 		{ rank, file },
 	) => {
+		// Square must not be occupied by opponent tokens
+		const hasTokens = squareState &&
+			squareState.tokens &&
+			squareState.tokens.length > 0
+		if (
+			hasTokens &&
+			squareState.tokens.some(owner => owner !== activePlayer)
+		) {
+			return false
+		}
+
+		// Square is on same rank or file as active player token
 		return activePlayerTokens.some(token => {
 			const [x, y] = token.location.split(':')
 			if (x === `${file}` && y === `${rank}`) {
