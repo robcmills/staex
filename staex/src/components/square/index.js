@@ -12,15 +12,14 @@ import {
 
 import Height from '../height/'
 import Tokens from '../tokens/'
-import ValidStackTarget from './valid-stack-target'
 import ValidTokenTarget from './valid-token-target'
 import './square.css'
 
 const Square = ({
 	activePlayer,
 	file,
-	isValidStackTarget,
 	isValidTokenTarget,
+	isValidStackTarget,
 	rank,
 	size,
 	squareState: {
@@ -31,30 +30,27 @@ const Square = ({
 }) =>
 	<div
 		className={cn('square', {
-			[`player${owner}Square`]: owner && !isValidStackTarget,
+			[`player${owner}Square`]: owner,
 		})}
 		style={{
 			left: `${file * size}px`,
 			bottom: `${rank * size}px`,
-			height: `${size}px`,
-			width: `${size}px`,
+			height: `${size - 2}px`,
+			width: `${size - 2}px`,
 		}}
 	>
-		<div className="inner-square">
-			{isValidStackTarget &&
-				<ValidStackTarget
-					height={(height || 0) + 1}
-					rank={rank}
-					file={file}
-					squareSize={size}
-				/>}
+		<div
+			className={cn('inner-square', {
+				validStackTargetSquare: isValidStackTarget,
+			})}
+		>
 			{isValidTokenTarget &&
 				<ValidTokenTarget
 					rank={rank}
 					file={file}
 					squareSize={size}
 				/>}
-			{height > 0 && !isValidStackTarget &&
+			{height > 0 &&
 				<Height squareSize={size}>{height}</Height>}
 			{tokens && !!tokens.length &&
 				<Tokens squareSize={size} tokens={tokens} />}
@@ -63,7 +59,7 @@ const Square = ({
 
 export default connect(mapStateToSelectors({
 	activePlayer: activePlayerSelector,
-	isValidStackTarget: isValidStackTargetSelector,
 	isValidTokenTarget: isValidTokenMoveTargetSelector,
+	isValidStackTarget: isValidStackTargetSelector,
 	squareState: squareStateSelector,
 }))(Square)

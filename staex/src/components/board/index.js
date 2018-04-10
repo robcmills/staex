@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 
 import Square from '../square/'
+import StackTarget from '../stack-target/'
 import './board.css'
 
 import viewport from './viewport'
@@ -43,6 +44,11 @@ class Board extends Component {
 				{
 					fileAndRanks.map(({ x, y }) =>
 						<Square file={x} rank={y} size={squareSize} key={`${x}:${y}`} />
+					)
+				}
+				{
+					fileAndRanks.map(({ x, y }) =>
+						<StackTarget file={x} rank={y} size={squareSize} key={`${x}:${y}`} />
 					)
 				}
 			</div>

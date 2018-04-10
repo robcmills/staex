@@ -1,0 +1,53 @@
+
+.stackTarget {
+	background: antiquewhite;
+	position: absolute;
+	display: flex;
+}
+.stackTarget:hover {
+	cursor: pointer;
+}
+
+.innerStackTarget {
+	align-items: center;
+	border: 2px dashed dimgray;
+	display: flex;
+	flex: 1 1 auto;
+	justify-content: center;
+	opacity: 0.75;
+}
+.innerStackTarget:hover {
+	border: 2px solid dimgray;
+	opacity: 1;
+	z-index: 1;
+}
+.innerStackTarget:hover .stackTargetOwnerHeight {
+	opacity: 0;
+}
+
+.player1StackTarget:hover {
+	background: burlywood;
+}
+.player2StackTarget:hover {
+	background: darkseagreen;
+}
+
+.stackTargetHeight {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.stackTargetHeight:hover {
+	opacity: 1;
+}
+
+.stackTargetOwnerHeight {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
