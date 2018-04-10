@@ -24,7 +24,9 @@ const ValidStackTarget = ({
 		)}
 		onClick={() => stack({ rank, file })}
 	>
-		<Height squareSize={squareSize}>{height}</Height>
+		<div className='stackTargetHeight'>
+			<Height squareSize={squareSize}>{height}</Height>
+		</div>
 	</div>
 
 export default magicConnect({

@@ -11,6 +11,18 @@
 	opacity: 1;
 }
 
+.stackTargetHeight {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	opacity: 0;
+}
+.stackTargetHeight:hover {
+	opacity: 1;
+}
+
 .player1StackTarget {
 	background: burlywood;
 }

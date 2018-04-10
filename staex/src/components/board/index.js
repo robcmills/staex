@@ -42,7 +42,7 @@ class Board extends Component {
 			>
 				{
 					fileAndRanks.map(({ x, y }) =>
-						<Square file={x} rank={y} size={squareSize} key={`${x}-${y}`} />
+						<Square file={x} rank={y} size={squareSize} key={`${x}:${y}`} />
 					)
 				}
 			</div>
