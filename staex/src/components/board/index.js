@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 
-import Square from '../square/'
-import StackTarget from '../stack-target/'
+import magicConnect from '../../redux/magic-connect'
+import {
+	foundationSquaresSelector,
+} from '../../redux/selectors'
+
+// import FoundationSquare from '../foundation-square/'
+// import Square from '../square/'
+// import StackTarget from '../stack-target/'
 import './board.css'
 
 import viewport from './viewport'
@@ -30,27 +36,29 @@ class Board extends Component {
 		const { viewport: { height, width } } = this.state
 		const isLandscape = width > height
 		let squareSize = isLandscape ?
-			Math.floor((height - BOARD_PADDING)/NUM_RANKS) :
-			Math.floor((width - BOARD_PADDING)/NUM_FILES)
+			Math.floor((height - BOARD_PADDING) / NUM_RANKS) :
+			Math.floor((width - BOARD_PADDING) / NUM_FILES)
+
+		// const { foundationSquares } = this.props
 
 		return (
 			<div
 				className="board"
 				style={{
-					height: `${squareSize*NUM_RANKS}px`,
-					width: `${squareSize*NUM_FILES}px`,
+					height: `${squareSize * NUM_RANKS}px`,
+					width: `${squareSize * NUM_FILES}px`,
 				}}
 			>
 				{
-					fileAndRanks.map(({ x, y }) =>
-						<Square file={x} rank={y} size={squareSize} key={`${x}:${y}`} />
-					)
+					/*foundationSquares.map(props =>
+						<FoundationSquare size={squareSize} {...props} />
+					)*/
 				}
-				{
+				{/*
 					fileAndRanks.map(({ x, y }) =>
 						<StackTarget file={x} rank={y} size={squareSize} key={`${x}:${y}`} />
 					)
-				}
+				*/}
 			</div>
 		)
 	}
@@ -64,4 +72,8 @@ class Board extends Component {
 	}
 }
 
-export default Board
+export default magicConnect({
+	selectors: {
+		foundationSquares: foundationSquaresSelector,
+	},
+})(Board)
