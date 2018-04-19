@@ -8,15 +8,23 @@ export const activePlayerSelector = ({ activePlayer }) => activePlayer
 export const player1TokenSelector = ({ player1Token }) => player1Token
 export const player2TokenSelector = ({ player2Token }) => player2Token
 
+export const player1SquaresSelector = ({ player1Squares }) => player1Squares
+export const player2SquaresSelector = ({ player2Squares }) => player2Squares
+
 export const stackTargetsMaskSelector = createSelector(
 	activePlayerSelector,
 	player1TokenSelector,
 	player2TokenSelector,
-	(activePlayer, player1Token, player2Token) => {
+	player1SquaresSelector,
+	player2SquaresSelector,
+	(activePlayer, player1Token, player2Token, player1Squares, player2Squares) => {
 		const activePlayerToken = activePlayer === 1 ? player1Token : player2Token
-		console.log('activePlayerToken', activePlayerToken)
+		const activePlayerSquares = activePlayer === 1 ? player1Squares : player1Squares
 		const adjacentSquares = ADJACENT_SQUARES_MAP[activePlayerToken]
-		console.log('adjacentSquares', adjacentSquares.toString(2))
+		// Exclude squares already occupied by player
+		const squaresIntersection = adjacentSquares & activePlayerSquares
+		const stackTargets = adjacentSquares ^ squaresIntersection
+		console.log('stackTargets', stackTargets.toString(2))
 		return ''
 	}
 )
