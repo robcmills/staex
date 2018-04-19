@@ -1,4 +1,2 @@
-export const bitBoard = (...binaryStrings) => {
-	console.log('binaryStrings', binaryStrings.join(''))
-	return parseInt(binaryStrings.join(''), 2)
-}
+export const bitBoard = binaryString =>
+	parseInt(binaryString.replace(/\s/g, ''), 2)
