@@ -11,7 +11,7 @@ export const player2TokenSelector = ({ player2Token }) => player2Token
 export const player1SquaresSelector = ({ player1Squares }) => player1Squares
 export const player2SquaresSelector = ({ player2Squares }) => player2Squares
 
-export const stackTargetsMaskSelector = createSelector(
+export const stackTargetsSelector = createSelector(
 	activePlayerSelector,
 	player1TokenSelector,
 	player2TokenSelector,
@@ -19,21 +19,19 @@ export const stackTargetsMaskSelector = createSelector(
 	player2SquaresSelector,
 	(activePlayer, player1Token, player2Token, player1Squares, player2Squares) => {
 		const activePlayerToken = activePlayer === 1 ? player1Token : player2Token
-		const activePlayerSquares = activePlayer === 1 ? player1Squares : player1Squares
+		const activePlayerSquares = activePlayer === 1 ? player1Squares : player2Squares
 		const adjacentSquares = ADJACENT_SQUARES_MAP[activePlayerToken]
-		// Exclude squares already occupied by player
-		const squaresIntersection = adjacentSquares & activePlayerSquares
-		const stackTargets = adjacentSquares ^ squaresIntersection
+		// Exclude squares already owned by player
+		const ownedIntersection = adjacentSquares & activePlayerSquares
+		const stackTargets = adjacentSquares ^ ownedIntersection
 		console.log('stackTargets', stackTargets.toString(2))
-		return ''
+		return stackTargets
 	}
 )
 
 export const foundationSquaresSelector = createSelector(
-	stackTargetsMaskSelector,
-	stackTargetsMask => {
-		console.log('stackTargetsMask', stackTargetsMask.toString(2))
-	}
+	stackTargetsSelector,
+	stackTargets => ~stackTargets
 )
 
 
