@@ -9,12 +9,6 @@ import Squares from '../squares/'
 const BOARD_PADDING = 64
 const NUM_FILES = 4
 const NUM_RANKS = 4
-const fileAndRanks = []
-for (let x = 0; x < NUM_FILES; x++) {
-	for (let y = 0; y < NUM_RANKS; y++) {
-		fileAndRanks.push({ x, y })
-	}
-}
 
 class Board extends Component {
 	constructor(props) {

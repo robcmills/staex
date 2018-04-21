@@ -19,6 +19,13 @@ export const ADJACENT_SQUARES_MAP = {
 	[b('0000 0000 0000 0001')]: b('0000 0000 0001 0011'),
 }
 
+export const binaryToCartesianArray = [
+	{x:0,y:3},{x:1,y:3},{x:2,y:3},{x:3,y:3},
+	{x:0,y:2},{x:1,y:2},{x:2,y:2},{x:3,y:2},
+	{x:0,y:1},{x:1,y:1},{x:2,y:1},{x:3,y:1},
+	{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:3,y:0},
+]
+
 export const playerColors = {
 	1: {
 		token: 'bisque',

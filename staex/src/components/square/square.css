@@ -19,7 +19,3 @@
 .player2Square {
 	background-color: darkseagreen;
 }
-
-.validStackTargetSquare {
-	border: 2px solid transparent;
-}

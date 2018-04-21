@@ -2,7 +2,7 @@
 import { createSelector } from 'reselect'
 
 import { ADJACENT_SQUARES_MAP } from './constants'
-import { not } from './helpers'
+import { not, toString16 } from './helpers'
 
 export const activePlayerSelector = ({ activePlayer }) => activePlayer
 
@@ -11,6 +11,15 @@ export const player2TokenSelector = ({ player2Token }) => player2Token
 
 export const player1SquaresSelector = ({ player1Squares }) => player1Squares
 export const player2SquaresSelector = ({ player2Squares }) => player2Squares
+
+export const player1SquaresStringSelector = createSelector(
+	player1SquaresSelector,
+	player1Squares => toString16(player1Squares)
+)
+export const player2SquaresStringSelector = createSelector(
+	player2SquaresSelector,
+	player2Squares => toString16(player2Squares)
+)
 
 export const stackTargetsSelector = createSelector(
 	activePlayerSelector,
@@ -32,6 +41,21 @@ export const stackTargetsSelector = createSelector(
 export const squaresSelector = createSelector(
 	stackTargetsSelector,
 	stackTargets => not(stackTargets)
+)
+
+export const ownerSelector = createSelector(
+	player1SquaresStringSelector,
+	player2SquaresStringSelector,
+	(state, { binaryIndex }) => binaryIndex,
+	(player1SquaresString, player2SquaresString, binaryIndex) => {
+		if (player1SquaresString[binaryIndex] === '1') {
+			return 1
+		}
+		if (player2SquaresString[binaryIndex] === '1') {
+			return 2
+		}
+		return 0
+	}
 )
 
 
