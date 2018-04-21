@@ -1,17 +1,10 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 
-import magicConnect from '../../redux/magic-connect'
-import {
-	foundationSquaresSelector,
-} from '../../redux/selectors'
-
-// import FoundationSquare from '../foundation-square/'
-// import Square from '../square/'
-// import StackTarget from '../stack-target/'
 import './board.css'
 
 import viewport from './viewport'
+import Squares from '../squares/'
 
 const BOARD_PADDING = 64
 const NUM_FILES = 4
@@ -39,8 +32,6 @@ class Board extends Component {
 			Math.floor((height - BOARD_PADDING) / NUM_RANKS) :
 			Math.floor((width - BOARD_PADDING) / NUM_FILES)
 
-		// const { foundationSquares } = this.props
-
 		return (
 			<div
 				className="board"
@@ -49,16 +40,7 @@ class Board extends Component {
 					width: `${squareSize * NUM_FILES}px`,
 				}}
 			>
-				{
-					/*foundationSquares.map(props =>
-						<FoundationSquare size={squareSize} {...props} />
-					)*/
-				}
-				{/*
-					fileAndRanks.map(({ x, y }) =>
-						<StackTarget file={x} rank={y} size={squareSize} key={`${x}:${y}`} />
-					)
-				*/}
+				<Squares size={squareSize} />
 			</div>
 		)
 	}
@@ -72,8 +54,4 @@ class Board extends Component {
 	}
 }
 
-export default magicConnect({
-	selectors: {
-		foundationSquares: foundationSquaresSelector,
-	},
-})(Board)
+export default Board

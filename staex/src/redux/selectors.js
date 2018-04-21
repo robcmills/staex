@@ -2,6 +2,7 @@
 import { createSelector } from 'reselect'
 
 import { ADJACENT_SQUARES_MAP } from './constants'
+import { not } from './helpers'
 
 export const activePlayerSelector = ({ activePlayer }) => activePlayer
 
@@ -24,14 +25,13 @@ export const stackTargetsSelector = createSelector(
 		// Exclude squares already owned by player
 		const ownedIntersection = adjacentSquares & activePlayerSquares
 		const stackTargets = adjacentSquares ^ ownedIntersection
-		console.log('stackTargets', stackTargets.toString(2))
 		return stackTargets
 	}
 )
 
-export const foundationSquaresSelector = createSelector(
+export const squaresSelector = createSelector(
 	stackTargetsSelector,
-	stackTargets => ~stackTargets
+	stackTargets => not(stackTargets)
 )
 
 
