@@ -8,12 +8,7 @@ import {
 
 import './square.css'
 
-const Square = ({
-	owner,
-	size,
-	x,
-	y,
-}) =>
+const Square = ({ owner, size, x, y }) =>
 	<div
 		className={cn('square', {
 			[`player${owner}Square`]: owner,
