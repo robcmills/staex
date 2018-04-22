@@ -1,23 +1,18 @@
 import createReducer from './create-reducer'
-// import { activePlayerTokensSelector } from './selectors'
 import initialState from './initial-state'
+import { setCharAt } from './helpers'
 
 export default createReducer(initialState, {
-	// STACK: (state, { rank, file }) => {
-	// 	const key = `${file}:${rank}`
-	// 	return {
-	// 		...state,
-	// 		activePlayer: state.activePlayer === 1 ? 2 : 1,
-	// 		board: {
-	// 			...state.board,
-	// 			[key]: {
-	// 				...state.board[key],
-	// 				owner: state.activePlayer,
-	// 				height: (state.board[key].height || 0) + 1
-	// 			},
-	// 		},
-	// 	}
-	// },
+	STACK: (state, { activePlayer, binaryIndex }) => {
+		const key = `player${activePlayer}Squares`
+		const mask = parseInt(setCharAt('0000000000000000', binaryIndex, '1'), 2)
+		const val = state[key] | mask
+		return {
+			...state,
+			activePlayer: state.activePlayer === 1 ? 2 : 1,
+			[key]: val,
+		}
+	},
 	// MOVE: (state, { rank, file }) => {
 	// 	const key = `${file}:${rank}`
 	// 	const activePlayerTokens = activePlayerTokensSelector(state)

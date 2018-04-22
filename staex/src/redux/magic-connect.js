@@ -4,13 +4,13 @@ import { bindActionCreators } from 'redux'
 
 import mapStateToSelectors from './map-state-to-selectors'
 
-export default function magicConnect({ selectors, actionCreators }) {
+export default function magicConnect({ selectors, actions }) {
 	return connect(
 		selectors ?
 			mapStateToSelectors(selectors) :
 			null,
-		actionCreators ?
-			_.partial(bindActionCreators, actionCreators) :
+		actions ?
+			_.partial(bindActionCreators, actions) :
 			null
 	)
 }

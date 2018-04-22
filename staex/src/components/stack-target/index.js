@@ -10,13 +10,15 @@ import {
 	heightSelector,
 	ownerSelector,
 } from '../../redux/selectors'
-// import { stackAction } from '../../redux/action-creators'
+import { stackAction } from '../../redux/action-creators'
 
 const StackTarget = ({
 	activePlayer,
+	binaryIndex,
 	height,
 	owner,
 	size,
+	stack,
 	x,
 	y,
 }) =>
@@ -36,6 +38,7 @@ const StackTarget = ({
 					[`player${owner}Square`]: owner,
 				}
 			)}
+			onClick={() => stack({ activePlayer, binaryIndex })}
 		>
 			<div className='stackTargetOwnerHeight'>
 				{height > 0 && <Height squareSize={size}>{height}</Height>}
@@ -51,5 +54,8 @@ export default magicConnect({
 		activePlayer: activePlayerSelector,
 		height: heightSelector,
 		owner: ownerSelector,
+	},
+	actions: {
+		stack: stackAction,
 	},
 })(StackTarget)
