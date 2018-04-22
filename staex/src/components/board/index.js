@@ -5,6 +5,7 @@ import './board.css'
 
 import viewport from './viewport'
 import Squares from '../squares/'
+import StackTargets from '../stack-targets/'
 
 const BOARD_PADDING = 64
 const NUM_FILES = 4
@@ -22,7 +23,7 @@ class Board extends Component {
 	render() {
 		const { viewport: { height, width } } = this.state
 		const isLandscape = width > height
-		let squareSize = isLandscape ?
+		const squareSize = isLandscape ?
 			Math.floor((height - BOARD_PADDING) / NUM_RANKS) :
 			Math.floor((width - BOARD_PADDING) / NUM_FILES)
 
@@ -35,6 +36,7 @@ class Board extends Component {
 				}}
 			>
 				<Squares size={squareSize} />
+				<StackTargets size={squareSize} />
 			</div>
 		)
 	}

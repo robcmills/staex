@@ -58,6 +58,14 @@ export const ownerSelector = createSelector(
 	}
 )
 
+export const squareHeightsSelector = ({ squareHeights }) => squareHeights
+
+export const heightSelector = createSelector(
+	squareHeightsSelector,
+	(state, { binaryIndex }) => binaryIndex,
+	(heights, binaryIndex) => heights[binaryIndex]
+)
+
 
 // import getAdjacentSquares from './get-adjacent-squares'
 

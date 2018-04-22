@@ -7,40 +7,33 @@ import './stack-target.css'
 import magicConnect from '../../redux/magic-connect'
 import {
 	activePlayerSelector,
-	isValidStackTargetSelector,
-	squareStateSelector,
+	heightSelector,
+	ownerSelector,
 } from '../../redux/selectors'
-import { stackAction } from '../../redux/action-creators'
+// import { stackAction } from '../../redux/action-creators'
 
-const ValidStackTarget = ({
+const StackTarget = ({
 	activePlayer,
-	file,
-	isValidStackTarget,
-	location,
-	rank,
+	height,
+	owner,
 	size,
-	stack,
-	squareState: {
-		owner,
-		height,
-		tokens,
-	},
-}) => isValidStackTarget ?
+	x,
+	y,
+}) =>
 	<div
 		className="stackTarget"
 		style={{
-			left: `${(file * size) - 2}px`,
-			bottom: `${(rank * size) - 2}px`,
+			left: `${(x * size) - 2}px`,
+			bottom: `${(y * size) - 2}px`,
 			height: `${size + 2}px`,
 			width: `${size + 2}px`,
 		}}
-		onClick={() => stack({ rank, file })}
 	>
 		<div
 			className={cn(
 				'innerStackTarget',
 				`player${activePlayer}StackTarget`, {
-					[`player${owner}Square`]: !!owner,
+					[`player${owner}Square`]: owner,
 				}
 			)}
 		>
@@ -51,16 +44,12 @@ const ValidStackTarget = ({
 				<Height squareSize={size}>{height + 1}</Height>
 			</div>
 		</div>
-	</div> :
-	null
+	</div>
 
 export default magicConnect({
 	selectors: {
 		activePlayer: activePlayerSelector,
-		isValidStackTarget: isValidStackTargetSelector,
-		squareState: squareStateSelector,
+		height: heightSelector,
+		owner: ownerSelector,
 	},
-	actionCreators: {
-		stack: stackAction,
-	},
-})(ValidStackTarget)
+})(StackTarget)
