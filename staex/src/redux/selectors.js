@@ -43,6 +43,7 @@ export const stackTargetsSelector = createSelector(
 		// Exclude squares already owned by player
 		const ownedIntersection = adjacentSquares & activePlayerSquares
 		const stackTargets = adjacentSquares ^ ownedIntersection
+		// Todo: exclude squares occluded by cliffs
 		return stackTargets
 	}
 )

@@ -12,8 +12,8 @@ const squareHeights = [0,0,0,1, 0,0,0,0, 0,0,0,0, 1,0,0,0]
 const player1Squares = b('0000 0000 0000 1000')
 const player2Squares = b('0001 0000 0000 0000')
 
-const player1Token = b('0000 0000 0000 1000')
-const player2Token = b('0001 0000 0000 0000')
+const player1Token = b('1000 0000 0000 0000')
+const player2Token = b('0000 0000 0000 0001')
 
 export default {
 	activePlayer: 1,
