@@ -1,22 +1,18 @@
 import React from 'react'
 
-import './token.css'
-import { playerColors } from '../../redux/constants'
+import magicConnect from '../../redux/magic-connect'
+import {
+	tokensSelector,
+} from '../../redux/selectors'
 
-const Tokens = ({ squareSize, tokens }) => {
-	const player = tokens.length ? tokens[0] : undefined
-	return (
-		<div
-			className="token"
-			style={{
-				background: playerColors[player].token,
-				height: `${squareSize*0.4}px`,
-				width: `${squareSize*0.4}px`,
-				right: `${squareSize*0.15}px`,
-				bottom: `${squareSize*0.15}px`,
-			}}
-		/>
-	)
-}
+import Token from './token'
 
-export default Tokens
+const Tokens = ({ squareSize, tokens }) =>
+	tokens.map((token, index) =>
+		<Token {...token} squareSize={squareSize} key={index} />)
+
+export default magicConnect({
+	selectors: {
+		tokens: tokensSelector,
+	},
+})(Tokens)

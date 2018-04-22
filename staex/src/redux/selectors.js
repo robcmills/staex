@@ -1,13 +1,22 @@
 // import _ from 'lodash'
 import { createSelector } from 'reselect'
 
-import { ADJACENT_SQUARES_MAP } from './constants'
+import { ADJACENT_SQUARES_MAP, binaryToCartesianArray } from './constants'
 import { not, toString16 } from './helpers'
 
 export const activePlayerSelector = ({ activePlayer }) => activePlayer
 
 export const player1TokenSelector = ({ player1Token }) => player1Token
 export const player2TokenSelector = ({ player2Token }) => player2Token
+
+export const player1TokenStringSelector = createSelector(
+	player1TokenSelector,
+	player1Token => toString16(player1Token)
+)
+export const player2TokenStringSelector = createSelector(
+	player2TokenSelector,
+	player2Token => toString16(player2Token)
+)
 
 export const player1SquaresSelector = ({ player1Squares }) => player1Squares
 export const player2SquaresSelector = ({ player2Squares }) => player2Squares
@@ -66,6 +75,14 @@ export const heightSelector = createSelector(
 	(heights, binaryIndex) => heights[binaryIndex]
 )
 
+export const tokensSelector = createSelector(
+	player1TokenStringSelector,
+	player2TokenStringSelector,
+	(player1TokenString, player2TokenString) => [
+		{ ...binaryToCartesianArray[player1TokenString.indexOf('1')], owner: 1 },
+		{ ...binaryToCartesianArray[player2TokenString.indexOf('1')], owner: 2 },
+	]
+)
 
 // import getAdjacentSquares from './get-adjacent-squares'
 

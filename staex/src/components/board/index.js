@@ -6,6 +6,7 @@ import './board.css'
 import viewport from './viewport'
 import Squares from '../squares/'
 import StackTargets from '../stack-targets/'
+import Tokens from '../tokens/'
 
 const BOARD_PADDING = 64
 const NUM_FILES = 4
@@ -37,6 +38,7 @@ class Board extends Component {
 			>
 				<Squares size={squareSize} />
 				<StackTargets size={squareSize} />
+				<Tokens squareSize={squareSize} />
 			</div>
 		)
 	}
