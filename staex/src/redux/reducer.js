@@ -1,16 +1,21 @@
 import createReducer from './create-reducer'
 import initialState from './initial-state'
-import { setCharAt } from './helpers'
+import { not, setCharAt } from './helpers'
 
 export default createReducer(initialState, {
 	STACK: (state, { activePlayer, binaryIndex }) => {
-		const key = `player${activePlayer}Squares`
+		const activePlayerKey = `player${activePlayer}Squares`
 		const mask = parseInt(setCharAt('0000000000000000', binaryIndex, '1'), 2)
-		const val = state[key] | mask
+		const activePlayerSquares = state[activePlayerKey] | mask
+
+		const inactivePlayerKey = `player${activePlayer === 1 ? 2 : 1}Squares`
+		const unmask = not(mask)
+		const inactivePlayerSquares = state[inactivePlayerKey] & unmask
 		return {
 			...state,
 			activePlayer: state.activePlayer === 1 ? 2 : 1,
-			[key]: val,
+			[activePlayerKey]: activePlayerSquares,
+			[inactivePlayerKey]: inactivePlayerSquares,
 			squareHeights: [
 				...state.squareHeights.slice(0, binaryIndex),
 				state.squareHeights[binaryIndex] + 1,
