@@ -11,6 +11,11 @@ export default createReducer(initialState, {
 			...state,
 			activePlayer: state.activePlayer === 1 ? 2 : 1,
 			[key]: val,
+			squareHeights: [
+				...state.squareHeights.slice(0, binaryIndex),
+				state.squareHeights[binaryIndex] + 1,
+				...state.squareHeights.slice(binaryIndex + 1, 16),
+			],
 		}
 	},
 	MOVE: (state, { binaryIndex, owner }) => {
