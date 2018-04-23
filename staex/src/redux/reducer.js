@@ -13,26 +13,13 @@ export default createReducer(initialState, {
 			[key]: val,
 		}
 	},
-	// MOVE: (state, { rank, file }) => {
-	// 	const key = `${file}:${rank}`
-	// 	const activePlayerTokens = activePlayerTokensSelector(state)
-	// 	const activePlayerToken = activePlayerTokens[0]
-	// 	return {
-	// 		...state,
-	// 		activePlayer: state.activePlayer === 1 ? 2 : 1,
-	// 		board: {
-	// 			...state.board,
-	// 			[key]: {
-	// 				...state.board[key],
-	// 				tokens: state.board[key].tokens
-	// 					.concat(state.activePlayer),
-	// 			},
-	// 			[activePlayerToken.location]: {
-	// 				...state.board[activePlayerToken.location],
-	// 				tokens: state.board[key].tokens
-	// 					.filter(token => token !== state.activePlayer),
-	// 			},
-	// 		},
-	// 	}
-	// },
+	MOVE: (state, { binaryIndex, owner }) => {
+		const key = `player${owner}Token`
+		const val = parseInt(setCharAt('0000000000000000', binaryIndex, '1'), 2)
+		return {
+			...state,
+			activePlayer: state.activePlayer === 1 ? 2 : 1,
+			[key]: val,
+		}
+	},
 })

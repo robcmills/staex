@@ -1,7 +1,11 @@
 // import _ from 'lodash'
 import { createSelector } from 'reselect'
 
-import { ADJACENT_SQUARES_MAP, binaryToCartesianArray } from './constants'
+import {
+	ADJACENT_SQUARES_MAP,
+	binaryToCartesianArray,
+	TOKEN_TARGETS_MAP,
+} from './constants'
 import { not, toString16 } from './helpers'
 
 export const activePlayerSelector = ({ activePlayer }) => activePlayer
@@ -83,6 +87,24 @@ export const tokensSelector = createSelector(
 		{ ...binaryToCartesianArray[player1TokenString.indexOf('1')], owner: 1 },
 		{ ...binaryToCartesianArray[player2TokenString.indexOf('1')], owner: 2 },
 	]
+)
+
+export const tokenTargetsSelector = createSelector(
+	activePlayerSelector,
+	player1TokenSelector,
+	player2TokenSelector,
+	(activePlayer, player1Token, player2Token) => {
+		const activePlayerToken = activePlayer === 1 ? player1Token : player2Token
+		let tokenTargets = TOKEN_TARGETS_MAP[activePlayerToken]
+		// Exclude squares occupied by opponent token
+		const opponentToken = activePlayer === 1 ? player2Token : player1Token
+		tokenTargets = tokenTargets ^ opponentToken
+		// Todo: exclude targets occluded by cliffs
+		const tokenTargetsString = toString16(tokenTargets)
+		return binaryToCartesianArray
+			.map((target, index) => ({ ...target, binaryIndex: index, owner: activePlayer }))
+			.filter((coord, index) => tokenTargetsString[index] === '1')
+	}
 )
 
 // import getAdjacentSquares from './get-adjacent-squares'
