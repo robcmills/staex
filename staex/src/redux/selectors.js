@@ -45,7 +45,10 @@ export const stackTargetsSelector = createSelector(
 		const adjacentSquares = ADJACENT_SQUARES_MAP[activePlayerToken]
 		// Exclude squares already owned by player
 		const ownedIntersection = adjacentSquares & activePlayerSquares
-		const stackTargets = adjacentSquares ^ ownedIntersection
+		let stackTargets = adjacentSquares ^ ownedIntersection
+		// Exclude squares occupied by opponent
+		const opponentToken = activePlayer === 1 ? player2Token : player1Token
+		stackTargets = stackTargets & not(opponentToken)
 		// Todo: exclude squares occluded by cliffs
 		return stackTargets
 	}
