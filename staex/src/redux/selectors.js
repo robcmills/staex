@@ -108,3 +108,17 @@ export const tokenTargetsSelector = createSelector(
 			.filter((coord, index) => tokenTargetsString[index] === '1')
 	}
 )
+
+export const player1ScoreSelector = createSelector(
+	player1SquaresStringSelector,
+	squareHeightsSelector,
+	(player1SquaresString, heights) => heights.reduce((acc, height, index) =>
+		player1SquaresString[index] === '1' ? acc + heights[index] : acc, 0)
+)
+
+export const player2ScoreSelector = createSelector(
+	player2SquaresStringSelector,
+	squareHeightsSelector,
+	(player2SquaresString, heights) => heights.reduce((acc, height, index) =>
+		player2SquaresString[index] === '1' ? acc + heights[index] : acc, 0)
+)
