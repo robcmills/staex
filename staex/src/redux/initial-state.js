@@ -7,20 +7,11 @@ import { bitBoard as b } from './helpers'
 12 13 14 15
 */
 
-const squareHeights = [0,0,0,1, 0,0,0,0, 0,0,0,0, 1,0,0,0]
-
-const player1Squares = b('0000 0000 0000 1000')
-const player2Squares = b('0001 0000 0000 0000')
-
-const player1Token = b('1000 0000 0000 0000')
-const player2Token = b('0000 0000 0000 0001')
-
 export default {
 	activePlayer: 1,
-	activeAction: 'stack',
-	player1Squares,
-	player2Squares,
-	player1Token,
-	player2Token,
-	squareHeights,
+	player1Squares: b('0000 0000 0000 1000'),
+	player2Squares: b('0001 0000 0000 0000'),
+	player1Token: b('1000 0000 0000 0000'),
+	player2Token: b('0000 0000 0000 0001'),
+	squareHeights: [0,0,0,1, 0,0,0,0, 0,0,0,0, 1,0,0,0],
 }
