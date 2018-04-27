@@ -57,12 +57,12 @@ export const stackTargetsSelector = createSelector(
 export const ownerSelector = createSelector(
 	player1SquaresStringSelector,
 	player2SquaresStringSelector,
-	(state, { binaryIndex }) => binaryIndex,
-	(player1SquaresString, player2SquaresString, binaryIndex) => {
-		if (player1SquaresString[binaryIndex] === '1') {
+	(state, { index }) => index,
+	(player1SquaresString, player2SquaresString, index) => {
+		if (player1SquaresString[index] === '1') {
 			return 1
 		}
-		if (player2SquaresString[binaryIndex] === '1') {
+		if (player2SquaresString[index] === '1') {
 			return 2
 		}
 		return 0
@@ -73,8 +73,8 @@ export const squareHeightsSelector = ({ squareHeights }) => squareHeights
 
 export const heightSelector = createSelector(
 	squareHeightsSelector,
-	(state, { binaryIndex }) => binaryIndex,
-	(heights, binaryIndex) => heights[binaryIndex]
+	(state, { index }) => index,
+	(heights, index) => heights[index]
 )
 
 export const tokensSelector = createSelector(
@@ -107,7 +107,7 @@ export const tokenTargetsArraySelector = createSelector(
 	(tokenTargets, activePlayer) => {
 		const tokenTargetsString = toString16(tokenTargets)
 		return binaryToCartesianArray
-			.map((target, index) => ({ ...target, binaryIndex: index, owner: activePlayer }))
+			.map((target, index) => ({ ...target, index, owner: activePlayer }))
 			.filter((coord, index) => tokenTargetsString[index] === '1')
 	}
 )
@@ -132,11 +132,11 @@ export const possibleMovesSelector = createSelector(
 	(stackTargets, tokenTargets) => [
 		...toString16(stackTargets)
 			.split('')
-			.map((value, index) => ({ action: 'STACK', index, value }))
+			.map((value, index) => ({ type: 'STACK', index, value }))
 			.filter(({ value }) => value === '1'),
 		...toString16(tokenTargets)
 			.split('')
-			.map((value, index) => ({ action: 'MOVE', index, value }))
+			.map((value, index) => ({ type: 'MOVE', index, value }))
 			.filter(({ value }) => value === '1'),
-	].map(({ action, index }) => ({ action, index })),
+	].map(({ type, index }) => ({ type, payload: { index } })),
 )

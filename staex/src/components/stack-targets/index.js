@@ -17,7 +17,7 @@ const StackTargets = ({ activePlayer, size, stackTargets }) => {
 	}
 	return binaryToCartesianArray.map((coord, index) =>
 		toString16(stackTargets)[index] === '1' ?
-			<StackTarget {...coord} size={size} key={index} binaryIndex={index} /> :
+			<StackTarget {...coord} size={size} key={index} index={index} /> :
 			null
 	)
 }

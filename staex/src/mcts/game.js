@@ -1,6 +1,5 @@
-import {
-	possibleMovesSelector,
-} from '../redux/selectors'
+import { possibleMovesSelector } from '../redux/selectors'
+import { handlers } from '../redux/handlers'
 
 export default class Game {
 	constructor(initialState) {
@@ -11,8 +10,9 @@ export default class Game {
 		return possibleMovesSelector(this.state)
 	}
 
-	performMove(move) {
+	performMove({ type, payload }) {
 		// updates the internal state of the game based on the move
+		this.state = handlers[type](this.state, payload)
 	}
 
 	getCurrentPlayer() {

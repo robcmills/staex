@@ -6,7 +6,7 @@ import './token-target.css'
 import { move } from '../../redux/action-creators'
 
 const TokenTarget = ({
-	binaryIndex,
+	index,
 	owner,
 	squareSize,
 	x,
@@ -17,7 +17,7 @@ const TokenTarget = ({
 			'tokenTarget',
 			`player${owner}TokenTarget`,
 		)}
-		onClick={() => move({ binaryIndex })}
+		onClick={() => move({ index })}
 		style={{
 			height: `${squareSize * 0.4}px`,
 			width: `${squareSize * 0.4}px`,

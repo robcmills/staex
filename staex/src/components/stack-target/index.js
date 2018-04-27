@@ -14,7 +14,7 @@ import { stack } from '../../redux/action-creators'
 
 const StackTarget = ({
 	activePlayer,
-	binaryIndex,
+	index,
 	height,
 	owner,
 	size,
@@ -37,7 +37,7 @@ const StackTarget = ({
 					[`player${owner}Square`]: owner,
 				}
 			)}
-			onClick={() => stack({ binaryIndex })}
+			onClick={() => stack({ index })}
 		>
 			<div className='stackTargetOwnerHeight'>
 				{height > 0 && <Height squareSize={size}>{height}</Height>}

@@ -5,15 +5,15 @@ fit('getPossibleMoves', () => {
 	const game = new Game(initialState)
 	const possibleMoves = game.getPossibleMoves()
 	const expectedMoves = [
-		{ action: 'STACK', index: 0 },
-		{ action: 'STACK', index: 1 },
-		{ action: 'STACK', index: 4 },
-		{ action: 'MOVE', index: 1 },
-		{ action: 'MOVE', index: 2 },
-		{ action: 'MOVE', index: 3 },
-		{ action: 'MOVE', index: 4 },
-		{ action: 'MOVE', index: 8 },
-		{ action: 'MOVE', index: 12 },
+		{ type: 'STACK', payload: { index: 0 } },
+		{ type: 'STACK', payload: { index: 1 } },
+		{ type: 'STACK', payload: { index: 4 } },
+		{ type: 'MOVE', payload: { index: 1 } },
+		{ type: 'MOVE', payload: { index: 2 } },
+		{ type: 'MOVE', payload: { index: 3 } },
+		{ type: 'MOVE', payload: { index: 4 } },
+		{ type: 'MOVE', payload: { index: 8 } },
+		{ type: 'MOVE', payload: { index: 12 } },
 	]
 	possibleMoves.map((move, index) =>
 		expect(move).toEqual(expectedMoves[index]))
