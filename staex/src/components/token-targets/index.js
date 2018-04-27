@@ -3,15 +3,21 @@ import React from 'react'
 import TokenTarget from '../token-target/'
 
 import magicConnect from '../../redux/magic-connect'
-import { tokenTargetsSelector } from '../../redux/selectors'
+import {
+	activePlayerSelector,
+	tokenTargetsSelector,
+} from '../../redux/selectors'
 
-const TokenTargets = ({ squareSize, targets }) => targets.map((target, index) =>
-	<TokenTarget {...target} squareSize={squareSize} key={index} />
-)
-
+const TokenTargets = ({ activePlayer, squareSize, targets }) =>
+	activePlayer === 1 ?
+		targets.map((target, index) =>
+			<TokenTarget {...target} squareSize={squareSize} key={index} />
+		) :
+		null
 
 export default magicConnect({
 	selectors: {
+		activePlayer: activePlayerSelector,
 		targets: tokenTargetsSelector,
 	},
 })(TokenTargets)

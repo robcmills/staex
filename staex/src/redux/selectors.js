@@ -54,11 +54,6 @@ export const stackTargetsSelector = createSelector(
 	}
 )
 
-export const squaresSelector = createSelector(
-	stackTargetsSelector,
-	stackTargets => not(stackTargets)
-)
-
 export const ownerSelector = createSelector(
 	player1SquaresStringSelector,
 	player2SquaresStringSelector,
