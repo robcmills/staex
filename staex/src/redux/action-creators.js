@@ -1,10 +1,15 @@
+import store from './store'
 
-export const stackAction = payload => ({
-	type: 'STACK',
-	payload,
-})
+export const stack = payload => {
+	// Player move
+	store.dispatch({ type: 'STACK', payload })
 
-export const moveAction = payload => ({
-	type: 'MOVE',
-	payload,
-})
+	// Computer move
+}
+
+export const move = payload => {
+	// Player move
+	store.dispatch({ type: 'MOVE', payload })
+
+	// Computer move
+}

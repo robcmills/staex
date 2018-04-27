@@ -3,12 +3,10 @@ import cn from 'classnames'
 
 import './token-target.css'
 
-import magicConnect from '../../redux/magic-connect'
-import { moveAction } from '../../redux/action-creators'
+import { move } from '../../redux/action-creators'
 
 const TokenTarget = ({
 	binaryIndex,
-	move,
 	owner,
 	squareSize,
 	x,
@@ -19,7 +17,7 @@ const TokenTarget = ({
 			'tokenTarget',
 			`player${owner}TokenTarget`,
 		)}
-		onClick={() => move({ binaryIndex, owner })}
+		onClick={() => move({ binaryIndex })}
 		style={{
 			height: `${squareSize * 0.4}px`,
 			width: `${squareSize * 0.4}px`,
@@ -28,8 +26,4 @@ const TokenTarget = ({
 		}}
 	/>
 
-export default magicConnect({
-	actions: {
-		move: moveAction,
-	},
-})(TokenTarget)
+export default TokenTarget
