@@ -5,7 +5,7 @@ import TokenTarget from '../token-target/'
 import magicConnect from '../../redux/magic-connect'
 import {
 	activePlayerSelector,
-	tokenTargetsSelector,
+	tokenTargetsArraySelector,
 } from '../../redux/selectors'
 
 const TokenTargets = ({ activePlayer, squareSize, targets }) =>
@@ -18,6 +18,6 @@ const TokenTargets = ({ activePlayer, squareSize, targets }) =>
 export default magicConnect({
 	selectors: {
 		activePlayer: activePlayerSelector,
-		targets: tokenTargetsSelector,
+		targets: tokenTargetsArraySelector,
 	},
 })(TokenTargets)

@@ -95,8 +95,16 @@ export const tokenTargetsSelector = createSelector(
 		let tokenTargets = TOKEN_TARGETS_MAP[activePlayerToken]
 		// Exclude squares occupied by opponent token
 		const opponentToken = activePlayer === 1 ? player2Token : player1Token
-		tokenTargets = tokenTargets ^ opponentToken
+		tokenTargets = tokenTargets & not(opponentToken)
 		// Todo: exclude targets occluded by cliffs
+		return tokenTargets
+	}
+)
+
+export const tokenTargetsArraySelector = createSelector(
+	tokenTargetsSelector,
+	activePlayerSelector,
+	(tokenTargets, activePlayer) => {
 		const tokenTargetsString = toString16(tokenTargets)
 		return binaryToCartesianArray
 			.map((target, index) => ({ ...target, binaryIndex: index, owner: activePlayer }))
@@ -116,4 +124,19 @@ export const player2ScoreSelector = createSelector(
 	squareHeightsSelector,
 	(player2SquaresString, heights) => heights.reduce((acc, height, index) =>
 		player2SquaresString[index] === '1' ? acc + heights[index] : acc, 0)
+)
+
+export const possibleMovesSelector = createSelector(
+	stackTargetsSelector,
+	tokenTargetsSelector,
+	(stackTargets, tokenTargets) => [
+		...toString16(stackTargets)
+			.split('')
+			.map((value, index) => ({ action: 'STACK', index, value }))
+			.filter(({ value }) => value === '1'),
+		...toString16(tokenTargets)
+			.split('')
+			.map((value, index) => ({ action: 'MOVE', index, value }))
+			.filter(({ value }) => value === '1'),
+	].map(({ action, index }) => ({ action, index })),
 )
