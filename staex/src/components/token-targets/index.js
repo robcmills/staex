@@ -9,11 +9,10 @@ import {
 } from '../../redux/selectors'
 
 const TokenTargets = ({ activePlayer, squareSize, targets }) =>
-	activePlayer === 1 ?
-		targets.map((target, index) =>
-			<TokenTarget {...target} squareSize={squareSize} key={index} />
-		) :
-		null
+	// activePlayer === 1 ?
+	targets.map((target, index) =>
+		<TokenTarget {...target} squareSize={squareSize} key={index} />
+	)
 
 export default magicConnect({
 	selectors: {

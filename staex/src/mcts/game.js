@@ -1,8 +1,12 @@
-import { possibleMovesSelector } from '../redux/selectors'
+import {
+	possibleMovesSelector,
+	player1ScoreSelector,
+	player2ScoreSelector,
+} from '../redux/selectors'
 import handlers from '../redux/handlers'
 
 export default class Game {
-	constructor(initialState) {
+	constructor({ initialState }) {
 		this.state = initialState
 	}
 
@@ -19,6 +23,12 @@ export default class Game {
 	}
 
 	getWinner() {
+		if (player1ScoreSelector(this.state) > 10) {
+			return 1
+		}
+		if (player2ScoreSelector(this.state) > 10) {
+			return 2
+		}
 		return 0
 	}
 }

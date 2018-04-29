@@ -3,7 +3,7 @@ import initialState from '../redux/initial-state'
 import { bitBoard as b } from '../redux/helpers'
 
 it('getPossibleMoves', () => {
-	const game = new Game(initialState)
+	const game = new Game({ initialState })
 	const possibleMoves = game.getPossibleMoves()
 	const expectedMoves = [
 		{ type: 'STACK', payload: { index: 0 } },
@@ -20,8 +20,8 @@ it('getPossibleMoves', () => {
 		expect(move).toEqual(expectedMoves[index]))
 })
 
-fit('performMove', () => {
-	const game = new Game(initialState)
+it('performMove', () => {
+	const game = new Game({ initialState })
 	game.performMove({ type: 'STACK', payload: { index: 0 } })
 	const expectedState = {
 		activePlayer: 2,

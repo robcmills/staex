@@ -12,9 +12,9 @@ import { binaryToCartesianArray } from '../../redux/constants'
 import { toString16 } from '../../redux/helpers'
 
 const StackTargets = ({ activePlayer, size, stackTargets }) => {
-	if (activePlayer === 2) {
-		return null
-	}
+	// if (activePlayer === 2) {
+	// 	return null
+	// }
 	return binaryToCartesianArray.map((coord, index) =>
 		toString16(stackTargets)[index] === '1' ?
 			<StackTarget {...coord} size={size} key={index} index={index} /> :
