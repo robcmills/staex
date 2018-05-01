@@ -1,4 +1,4 @@
-import _ from 'lodash'
+var _ = require('lodash')
 
 class RandomSelection {
 	constructor(array) {
@@ -41,7 +41,7 @@ class Node {
 				moves = moves.array
 				this.randomNode = true
 			}
-			this.children = _.map(moves, move => {
+			this.children = _.map(moves, function (move) {
 				return new Node(_.assign(new this.game.constructor(), _.cloneDeep(this.game)), this, move, this.depth + 1, this.mcts)
 			}, this)
 		}
@@ -65,8 +65,9 @@ class Node {
 
 class MCTS {
 	constructor(game, rounds, player) {
+		var self = this
 		this.game = game
-		this.nodeSort = node => {
+		this.nodeSort = function (node) {
 			if (node.parent) return node.getUCB1(node.parent.game.getCurrentPlayer())
 			return 0
 		}
@@ -94,5 +95,5 @@ class MCTS {
 	}
 }
 
-export default MCTS
-// exports.RandomSelection = RandomSelection
+exports.MCTS = MCTS
+exports.RandomSelection = RandomSelection

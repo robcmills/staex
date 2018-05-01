@@ -9,9 +9,9 @@ import { bitBoard as b } from './helpers'
 
 export default {
 	activePlayer: 1,
-	player1Squares: b('0000 0000 0000 1000'),
-	player2Squares: b('0001 0000 0000 0000'),
+	player1Squares: b('0000 0000 0000 0000'),
+	player2Squares: b('0000 0000 0010 0000'),
 	player1Token: b('1000 0000 0000 0000'),
 	player2Token: b('0000 0000 0000 0001'),
-	squareHeights: [0,0,0,1, 0,0,0,0, 0,0,0,0, 1,0,0,0],
+	squareHeights: [0,0,0,0, 0,0,0,0, 0,0,1,0, 0,0,0,0],
 }

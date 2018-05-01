@@ -6,7 +6,7 @@ import { winnerSelector } from './selectors'
 function computerMove(state) {
 	setTimeout(() => {
 		const game = new Game({ initialState: state })
-		const mcts = new MCTS({ game, rounds: 1000, timeout: 30000 })
+		const mcts = new MCTS({ game, rounds: 100000, timeout: 60000 })
 		const move = mcts.getMove()
 		store.dispatch(move)
 	}, 10)
