@@ -2,11 +2,13 @@ import store from './store'
 import MCTS from '../mcts/'
 import Game from '../mcts/game'
 
-function getComputerMove(state) {
-	const game = new Game({ initialState: state })
-	const mcts = new MCTS({ game, rounds: 100000, timout: 60000 })
-	const move = mcts.getMove()
-	return move
+function computerMove(state) {
+	setTimeout(() => {
+		const game = new Game({ initialState: state })
+		const mcts = new MCTS({ game, rounds: 10000, timeout: 60000 })
+		const move = mcts.getMove()
+		store.dispatch(move)
+	}, 10)
 }
 
 export const stack = payload => {
@@ -14,8 +16,7 @@ export const stack = payload => {
 	store.dispatch({ type: 'STACK', payload })
 
 	// Computer move
-	const computerMove = getComputerMove(store.getState())
-	store.dispatch(computerMove)
+	computerMove(store.getState())
 }
 
 export const move = payload => {
@@ -23,6 +24,5 @@ export const move = payload => {
 	store.dispatch({ type: 'MOVE', payload })
 
 	// Computer move
-	const computerMove = getComputerMove(store.getState())
-	store.dispatch(computerMove)
+	computerMove(store.getState())
 }

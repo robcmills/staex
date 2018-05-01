@@ -1,5 +1,4 @@
 import _ from 'lodash'
-
 import Game from './game'
 
 function getRandom(length) {
@@ -19,6 +18,19 @@ class Node {
 		this.simulations = 0
 		this.wins = 0
 		this.setUCB()
+	}
+
+	inspect(depth = 1) {
+		console.log(
+			'move', _.get(this, 'move.type'), _.get(this, 'move.payload.index'),
+			'depth', this.depth,
+			'simulations', this.simulations,
+			'wins', this.wins,
+			'ucb', this.ucb,
+		)
+		if (this.depth < depth && this.children.length) {
+			this.children.map(child => child.inspect())
+		}
 	}
 
 	addChildren() {
@@ -79,12 +91,15 @@ class MCTS {
 				.shuffle()
 				.sortBy('ucb')
 				.last()
+			// console.log('selectedNode', selectedNode.inspect())
 			this.currentNode = selectedNode
 		}
 	}
 
 	expand() {
 		// console.log('expand')
+		this.winner = this.currentNode.game.getWinner()
+		if (this.winner) return
 		this.currentNode.addChildren()
 		this.currentNode = this.currentNode.children[
 			getRandom(this.currentNode.children.length)
@@ -93,13 +108,13 @@ class MCTS {
 
 	playout() {
 		// console.log('playout')
-		let playoutCount = 0
+		// let playoutCount = 0
 		const playoutGame = new Game({ initialState: this.currentNode.game.state })
-		while (playoutGame.getWinner() === 0 && this.shouldContinue()) {
+		while (!playoutGame.getWinner() && this.shouldContinue()) {
 			const moves = playoutGame.getPossibleMoves()
 			const selectedMove = moves[getRandom(moves.length)]
 			playoutGame.performMove(selectedMove)
-			playoutCount += 1
+			// playoutCount += 1
 		}
 		// console.log('playout took ', playoutCount, ' moves')
 		this.winner = playoutGame.getWinner()
@@ -108,9 +123,9 @@ class MCTS {
 
 	propagate() {
 		// console.log('propagate')
-		while (this.currentNode.parent && this.shouldContinue()) {
+		while (this.currentNode && this.shouldContinue()) {
 			this.currentNode.simulations++
-			if (this.currentNode.game.state.activePlayer === this.winner) {
+			if (this.currentNode.game.state.activePlayer !== this.winner) {
 				this.currentNode.wins++
 			}
 			this.currentNode.setUCB()
@@ -122,7 +137,7 @@ class MCTS {
 		while (this.shouldContinue()) {
 			this.select()
 			this.expand()
-			this.playout()
+			if (!this.winner) this.playout()
 			this.propagate()
 			this.rounds -= 1
 		}
@@ -131,21 +146,7 @@ class MCTS {
 	}
 
 	inspect() {
-		let node = this.rootNode
-		while (node.children.length) {
-			node.children.map(child =>
-				console.log(
-					'depth', child.depth,
-					'children', _.get(child, 'children.length'),
-					'move', child.move,
-					'simulations', child.simulations,
-					'wins', child.wins,
-					'activePlayer', child.game.state.activePlayer,
-					'ucb', child.ucb,
-				)
-			)
-			node = node.children[0]
-		}
+		this.rootNode.inspect()
 	}
 }
 
