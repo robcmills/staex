@@ -1,14 +1,16 @@
 import React from 'react'
 
-import Status from '../status/'
+import TopStatus from '../status/top'
+import BottomStatus from '../status/bottom'
 import Board from '../board/'
 
 import './app.css'
 
 const App = () =>
 	<div className="app">
-		<Status />
+		<TopStatus />
 		<Board />
+		<BottomStatus />
 	</div>
 
 export default App

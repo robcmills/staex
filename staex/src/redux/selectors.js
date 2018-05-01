@@ -4,6 +4,7 @@ import {
 	ADJACENT_SQUARES_MAP,
 	binaryToCartesianArray,
 	TOKEN_TARGETS_MAP,
+	WIN_SCORE,
 } from './constants'
 import { not, toString16 } from './helpers'
 
@@ -139,4 +140,18 @@ export const possibleMovesSelector = createSelector(
 			.map((value, index) => ({ type: 'MOVE', index, value }))
 			.filter(({ value }) => value === '1'),
 	].map(({ type, index }) => ({ type, payload: { index } })),
+)
+
+export const winnerSelector = createSelector(
+	player1ScoreSelector,
+	player2ScoreSelector,
+	(player1Score, player2Score) => {
+		if (player1Score > WIN_SCORE) {
+			return 1
+		}
+		if (player2Score > WIN_SCORE) {
+			return 2
+		}
+		return 0
+	}
 )

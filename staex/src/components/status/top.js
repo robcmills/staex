@@ -6,17 +6,18 @@ import {
 	activePlayerSelector,
 	player1ScoreSelector,
 	player2ScoreSelector,
+	winnerSelector,
 } from '../../redux/selectors'
 
 import './status.css'
 
-const Status = ({ activePlayer, player1Score, player2Score }) =>
-	<div className="status">
-		<span className={cn('player1Score', { active: activePlayer === 1 })}>
+const TopStatus = ({ activePlayer, player1Score, player2Score, winner }) =>
+	<div className={cn('top', 'status')}>
+		<span className={cn('player1Score', { active: !winner && activePlayer === 1 })}>
 			{player1Score}
 		</span>
 		{' - '}
-		<span className={cn('player2Score', { active: activePlayer === 2 })}>
+		<span className={cn('player2Score', { active: !winner && activePlayer === 2 })}>
 			{player2Score}
 		</span>
 	</div>
@@ -26,5 +27,6 @@ export default magicConnect({
 		activePlayer: activePlayerSelector,
 		player1Score: player1ScoreSelector,
 		player2Score: player2ScoreSelector,
+		winner: winnerSelector,
 	},
-})(Status)
+})(TopStatus)

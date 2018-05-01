@@ -1,5 +1,7 @@
 import { bitBoard as b } from './helpers'
 
+export const WIN_SCORE = 10
+
 export const ADJACENT_SQUARES_MAP = {
 	[b('1000 0000 0000 0000')]: b('1100 1000 0000 0000'),
 	[b('0100 0000 0000 0000')]: b('1110 0100 0000 0000'),
