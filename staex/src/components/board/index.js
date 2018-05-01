@@ -8,6 +8,7 @@ import Squares from '../squares/'
 import StackTargets from '../stack-targets/'
 import TokenTargets from '../token-targets/'
 import Tokens from '../tokens/'
+import ProgressBar from '../progress-bar/'
 
 const BOARD_PADDING = 64
 const NUM_FILES = 4
@@ -41,6 +42,7 @@ class Board extends Component {
 				<StackTargets size={squareSize} />
 				<TokenTargets squareSize={squareSize} />
 				<Tokens squareSize={squareSize} />
+				<ProgressBar />
 			</div>
 		)
 	}

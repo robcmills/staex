@@ -1,0 +1,29 @@
+.progressBar {
+	align-items: center;
+	bottom: -32px;
+	display: flex;
+	left: -2px;
+	height: 30px;
+	justify-content: center;
+	position: absolute;
+	right: 0;
+}
+
+.bar {
+	background: antiquewhite;
+	border: 2px solid dimgray;
+	height: 10px;
+	width: 100%;
+}
+
+.progress {
+	background: lightgreen;
+	height: 100%;
+}
+.start {
+	width: 1%;
+}
+.end {
+	transition: width 30s linear;
+	width: 100%;
+}
