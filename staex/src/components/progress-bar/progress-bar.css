@@ -1,4 +1,4 @@
-.progressBar {
+.progressBarWrapper {
 	align-items: center;
 	bottom: -32px;
 	display: flex;
@@ -17,13 +17,18 @@
 }
 
 .progress {
+	animation-duration: 30s;
+	animation-name: progressBar;
+	animation-timing-function: linear;
 	background: lightgreen;
 	height: 100%;
 }
-.start {
-	width: 1%;
-}
-.end {
-	transition: width 30s linear;
-	width: 100%;
+
+@keyframes progressBar {
+	from {
+		width: 1%;
+	}
+	to {
+		width: 100%;
+	}
 }
