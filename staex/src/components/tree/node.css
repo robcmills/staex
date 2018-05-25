@@ -1,0 +1,7 @@
+.node {
+	display: flex;
+}
+.node:hover {
+	background: antiquewhite;
+	cursor: pointer;
+}
