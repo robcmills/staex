@@ -21,12 +21,12 @@ class Node {
 	}
 
 	toString() {
-		return (
-			`M:${_.get(this, 'move.type', '')}${_.get(this, 'move.payload.index', '')} ` +
-			`W:${this.wins} ` +
-			`V:${this.simulations} ` +
-			`U:${this.ucb}`
-		)
+		const M = `M:${_.get(this, 'move.type', 'X')[0]}` +
+			`${_.get(this, 'move.payload.index', '')}`.padStart(3, '-')
+		const W = 'W:' + `${this.wins}`.padStart(6, '-')
+		const V = 'V:' + `${this.simulations}`.padStart(6, '-')
+		const U = 'U:' + `${this.ucb.toFixed(4)}`.padStart(8, '-')
+		return [M, W, V, U].join(' ')
 	}
 
 	addChildren() {
