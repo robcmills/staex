@@ -1,16 +1,7 @@
 import React from 'react'
 
-import TopStatus from '../status/top'
-import BottomStatus from '../status/bottom'
-import Board from '../board/'
+import Router from '../router/'
 
-import './app.css'
-
-const App = () =>
-	<div className="app">
-		<TopStatus />
-		<Board />
-		<BottomStatus />
-	</div>
+const App = () => <Router />
 
 export default App

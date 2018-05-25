@@ -4,6 +4,9 @@ import _ from 'lodash'
 import './board.css'
 
 import viewport from './viewport'
+
+import TopStatus from '../status/top'
+import BottomStatus from '../status/bottom'
 import Squares from '../squares/'
 import StackTargets from '../stack-targets/'
 import TokenTargets from '../token-targets/'
@@ -30,17 +33,21 @@ class Board extends Component {
 			Math.floor((width - BOARD_PADDING) / NUM_FILES)
 
 		return (
-			<div
-				className="board"
-				style={{
-					height: `${squareSize * NUM_RANKS}px`,
-					width: `${squareSize * NUM_FILES}px`,
-				}}
-			>
-				<Squares size={squareSize} />
-				<StackTargets size={squareSize} />
-				<TokenTargets squareSize={squareSize} />
-				<Tokens squareSize={squareSize} />
+			<div className="fullscreen">
+				<TopStatus />
+				<div
+					className="board"
+					style={{
+						height: `${squareSize * NUM_RANKS}px`,
+						width: `${squareSize * NUM_FILES}px`,
+					}}
+				>
+					<Squares size={squareSize} />
+					<StackTargets size={squareSize} />
+					<TokenTargets squareSize={squareSize} />
+					<Tokens squareSize={squareSize} />
+				</div>
+				<BottomStatus />
 			</div>
 		)
 	}
