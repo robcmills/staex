@@ -5,3 +5,7 @@
 	background: antiquewhite;
 	cursor: pointer;
 }
+
+.node-children {
+	padding-left: 16px;
+}

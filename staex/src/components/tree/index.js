@@ -7,7 +7,7 @@ import './tree.css'
 
 const Tree = () => (
 	<div className="tree">
-		{mcts.mcts && <Node node={mcts.mcts.rootNode} />}
+		{mcts.mcts && <Node node={mcts.mcts.rootNode} isExpanded />}
 	</div>
 )
 
