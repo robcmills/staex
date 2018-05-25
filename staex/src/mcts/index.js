@@ -20,17 +20,13 @@ class Node {
 		this.setUCB()
 	}
 
-	inspect(depth = 1) {
-		console.log(
-			'move', _.get(this, 'move.type'), _.get(this, 'move.payload.index'),
-			'depth', this.depth,
-			'simulations', this.simulations,
-			'wins', this.wins,
-			'ucb', this.ucb,
+	toString() {
+		return (
+			`M:${_.get(this, 'move.type', '')}${_.get(this, 'move.payload.index', '')} ` +
+			`W:${this.wins} ` +
+			`V:${this.simulations} ` +
+			`U:${this.ucb}`
 		)
-		if (this.depth < depth && this.children.length) {
-			this.children.map(child => child.inspect())
-		}
 	}
 
 	addChildren() {
@@ -82,7 +78,6 @@ class MCTS {
 	}
 
 	select() {
-		// console.log('select')
 		// Traverse the tree from root to leaf
 		// Use UCB to select a child nodes
 		this.currentNode = this.rootNode
@@ -91,13 +86,11 @@ class MCTS {
 				.shuffle()
 				.sortBy('ucb')
 				.last()
-			// console.log('selectedNode', selectedNode.inspect())
 			this.currentNode = selectedNode
 		}
 	}
 
 	expand() {
-		// console.log('expand')
 		this.winner = this.currentNode.game.getWinner()
 		if (this.winner) return
 		this.currentNode.addChildren()
@@ -107,22 +100,16 @@ class MCTS {
 	}
 
 	playout() {
-		// console.log('playout')
-		// let playoutCount = 0
 		const playoutGame = new Game({ initialState: this.currentNode.game.state })
 		while (!playoutGame.getWinner() && this.shouldContinue()) {
 			const moves = playoutGame.getPossibleMoves()
 			const selectedMove = moves[getRandom(moves.length)]
 			playoutGame.performMove(selectedMove)
-			// playoutCount += 1
 		}
-		// console.log('playout took ', playoutCount, ' moves')
 		this.winner = playoutGame.getWinner()
-		// console.log('winner', this.winner)
 	}
 
 	propagate() {
-		// console.log('propagate')
 		while (this.currentNode && this.shouldContinue()) {
 			this.currentNode.simulations++
 			if (this.currentNode.game.state.activePlayer !== this.winner) {
@@ -141,12 +128,7 @@ class MCTS {
 			this.propagate()
 			this.rounds -= 1
 		}
-		// this.inspect()
 		return _(this.rootNode.children).sortBy('simulations').last().move
-	}
-
-	inspect() {
-		this.rootNode.inspect()
 	}
 }
 

@@ -1,5 +1,11 @@
 import React from 'react'
 
-const Tree = () => <div className="tree">TREE</div>
+import mcts from '../../mcts/singleton'
+
+const Tree = () => (
+	<div className="tree">
+		{mcts.mcts && mcts.mcts.rootNode.toString()}
+	</div>
+)
 
 export default Tree
