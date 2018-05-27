@@ -1,6 +1,6 @@
 import store from './store'
-import { winnerSelector } from './selectors'
 import { getComputerMove } from './computer'
+import { winnerSelector } from './selectors'
 
 export const stack = payload => {
 	// Player move

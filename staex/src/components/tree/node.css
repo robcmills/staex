@@ -1,0 +1,11 @@
+.node {
+	display: flex;
+}
+.node:hover {
+	background: antiquewhite;
+	cursor: pointer;
+}
+
+.node-children {
+	padding-left: 16px;
+}
