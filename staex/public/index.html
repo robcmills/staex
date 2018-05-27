@@ -37,18 +37,7 @@
 			To create a production bundle, use `npm run build` or `yarn build`.
 		-->
 		<script language="javascript">
-			const worker = new Worker('worker.js');
-
-			worker.onmessage = function(event) {
-			  console.log('Message received from worker', event)
-			}
-
-			worker.onerror = function(error) {
-				console.error('Worker error: ' + error.message + '\n')
-				throw error
-			};
-
-			document.worker = worker
+			document.worker = new Worker('worker.js');
 		</script>
 	</body>
 </html>
