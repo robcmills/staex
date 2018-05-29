@@ -1,13 +1,6 @@
 import store from './store'
-import mcts from '../mcts/singleton'
+import { getComputerMove } from './computer'
 import { winnerSelector } from './selectors'
-
-function getComputerMove(state) {
-	setTimeout(() => {
-		const move = mcts.getMove(state)
-		store.dispatch(move)
-	}, 10)
-}
 
 export const stack = payload => {
 	// Player move
