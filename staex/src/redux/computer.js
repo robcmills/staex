@@ -1,10 +1,11 @@
+/* eslint-disable no-undef */
 import store from './store'
 import mcts from '../mcts/singleton'
 
 export function getComputerMove(state) {
+	console.log('getComputerMove')
 	if (document.worker) {
 		if (!document.worker.onmessage) {
-			console.log('!onmessage')
 			document.worker.onmessage = function(event) {
 			  console.log('Result received from worker', event.data)
 			  // store.dispatch(e.data)
