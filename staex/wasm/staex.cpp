@@ -3,22 +3,30 @@
 
 extern "C" {
 	int compute_move(
-		int boardSize,
-		int player1Squares,
-		int player2Squares,
-		int player1Token,
-		int player2Token,
-		int* squareHeights
+		int board_size,
+		int p1_squares,
+		int p2_squares,
+		int p1_token,
+		int p2_token,
+		int* heights
 	) {
-		std::cout << "compute_move (cpp)";
-		std::cout << " player1Squares:" << player1Squares;
-		std::cout << " player2Squares:" << player2Squares;
-		std::cout << std::endl;
-		std::cout << "squareHeights:";
-		for (int i = 0; i < (boardSize * boardSize); ++i) {
-			std::cout << squareHeights[i] << ",";
+		std::cout << "compute_move (cpp)" << std::endl;
+
+		BoardState board = vector<vector<SquareState>>(
+			board_size,
+			vector<SquareState>(
+				board_size,
+				INITIAL_SQUARE_STATE
+			)
+		);
+
+		for (int y=0; y<board_size; ++y) {
+			for (int x=0; x<board_size; ++x) {
+				board[y][x].height = heights[y * board_size + x];
+			}
 		}
-		std::cout << std::endl;
+
+		print_board(board, board_size);
 		return 0;
 	}
 }

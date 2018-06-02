@@ -33,6 +33,22 @@ void print_square(SquareState s) {
 	cout << setw(8) << state.str();
 }
 
+void print_board(BoardState b, int board_size) {
+	cout << " ";
+	for (int i=0; i<board_size; ++i) {
+		cout << setw(8) << i;
+	}
+	cout << endl;
+	for (int y=0; y<board_size; ++y) {
+		cout << y;
+		for (int x=0; x<board_size; ++x) {
+			print_square(b[y][x]);
+		}
+		cout << endl;
+	}
+}
+
+
 class Staex {
 	public:
 		struct Move {
@@ -54,24 +70,6 @@ class Staex {
 		  board(board_),
 		  game_end_score(game_end_score_)
 		{}
-
-		void print_board() const {
-			int player_1_score = get_player_score(1);
-			int player_2_score = get_player_score(2);
-			cout << "Scores: P1:" << player_1_score << " P2:" << player_2_score << endl;
-			cout << " ";
-			for (int i=0; i<board_size; ++i) {
-				cout << setw(8) << i;
-			}
-			cout << endl;
-			for (int y=0; y<board_size; ++y) {
-				cout << y;
-				for (int x=0; x<board_size; ++x) {
-					print_square(board[y][x]);
-				}
-				cout << endl;
-			}
-		}
 
 		int get_winner() const {
 			int player_1_score = 0;
