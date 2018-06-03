@@ -46,16 +46,21 @@ extern "C" {
 
 		print_board(board, board_size);
 
-		Staex staex(board_size, board);
+		Staex staex(2, board_size, board);
 
 		MCTS::ComputeOptions compute_options;
-		compute_options.max_iterations = 1000;
+		compute_options.max_iterations = 100000;
 		compute_options.verbose = false;
 		compute_options.number_of_threads = 1;
 
 		Staex::Move computer_move = MCTS::compute_move(staex, compute_options);
-		std::cout << "computer_move:" << computer_move << std::endl;
 
-		return 0;
+		std::cout << "computer_move:" << computer_move << std::endl;
+		int computer_move_int = computer_move.y * board_size + computer_move.x + 1;
+		if (computer_move.type == 'M') {
+			computer_move_int *= -1;
+		}
+
+		return computer_move_int;
 	}
 }

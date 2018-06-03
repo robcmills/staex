@@ -6,8 +6,14 @@ export function getComputerMove(state) {
 	if (document.worker) {
 		if (!document.worker.onmessage) {
 			document.worker.onmessage = function(event) {
-			  console.log('Result from worker:' + event.data)
-			  // store.dispatch(e.data)
+				console.log('Result from worker:' + event.data)
+				const result = event.data
+				const index = Math.abs(result) - 1
+				const action = {
+					type: result > 0 ? 'STACK' : 'MOVE',
+					payload: { index },
+				}
+				store.dispatch(action)
 			}
 			document.worker.onerror = function(error) {
 				console.error('Worker error:', error.message)

@@ -388,23 +388,25 @@ typename State::Move compute_move(const State root_state,
 	#endif
 
 	// Start all jobs to compute trees.
-	vector<future<unique_ptr<Node<State>>>> root_futures;
+	// vector<future<unique_ptr<Node<State>>>> root_futures;
 	ComputeOptions job_options = options;
 	job_options.verbose = false;
-	for (int t = 0; t < options.number_of_threads; ++t) {
-		auto func = [t, &root_state, &job_options] () -> std::unique_ptr<Node<State>>
-		{
-			return compute_tree(root_state, job_options, 1012411 * t + 12515);
-		};
+	// for (int t = 0; t < options.number_of_threads; ++t) {
+	// 	auto func = [t, &root_state, &job_options] () -> std::unique_ptr<Node<State>>
+	// 	{
+	// 		return compute_tree(root_state, job_options, 1012411 * t + 12515);
+	// 	};
 
-		root_futures.push_back(std::async(std::launch::async, func));
-	}
+	// 	root_futures.push_back(std::async(std::launch::async, func));
+	// }
 
 	// Collect the results.
 	vector<unique_ptr<Node<State>>> roots;
-	for (int t = 0; t < options.number_of_threads; ++t) {
-		roots.push_back(std::move(root_futures[t].get()));
-	}
+	// for (int t = 0; t < options.number_of_threads; ++t) {
+	// 	roots.push_back(std::move(root_futures[t].get()));
+	// }
+
+	roots.push_back(compute_tree(root_state, job_options, 1012411 + 12515));
 
 	// Merge the children of all root nodes.
 	map<typename State::Move, int> visits;

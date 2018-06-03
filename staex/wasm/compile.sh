@@ -5,7 +5,9 @@ em++ \
 	staex.cpp -O3 \
 	-std=c++11 \
 	--post-js staex.post.js \
+	-s ALLOW_MEMORY_GROWTH=1 \
 	-s ASSERTIONS=1 \
+	-s DISABLE_EXCEPTION_CATCHING=0 \
 	-s WASM=1 \
 	-s EXPORTED_FUNCTIONS="['_compute_move']" \
 	-s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall']"

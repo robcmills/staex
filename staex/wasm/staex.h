@@ -61,11 +61,12 @@ class Staex {
 		int game_end_score;
 
 		Staex(
+			int player_to_move_ = 2,
 			int board_size_ = DEFAULT_BOARD_SIZE,
 			BoardState board_ = INITIAL_BOARD_STATE,
 			int game_end_score_ = DEFAULT_GAME_END_SCORE
 		) :
-			player_to_move(1),
+			player_to_move(player_to_move_),
 		  board_size(board_size_),
 		  board(board_),
 		  game_end_score(game_end_score_)
@@ -117,11 +118,11 @@ class Staex {
 		}
 
 		bool is_valid_stack_target(SquareState target) const {
-			return target.owner != player_to_move;
+			return target.owner != player_to_move && target.token != (3 - player_to_move);
 		}
 
 		bool is_valid_token_target(SquareState target) const {
-			return target.token != 3 - player_to_move;
+			return target.token != (3 - player_to_move);
 		}
 
 		vector<Move> get_moves() const {
