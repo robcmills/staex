@@ -229,6 +229,8 @@ class Staex {
 		vector<vector<SquareState>> board;
 };
 
+const Staex::Move Staex::no_move = { '0',0,0 };
+
 std::ostream& operator << (std::ostream& o, const Staex::Move& m) {
 	o << m.type << m.x << "," << m.y;
 	return o;

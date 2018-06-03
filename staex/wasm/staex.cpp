@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include "mcts.h"
 #include "staex.h"
 
 extern "C" {
@@ -44,6 +45,17 @@ extern "C" {
 		}
 
 		print_board(board, board_size);
+
+		Staex staex(board_size, board);
+
+		MCTS::ComputeOptions compute_options;
+		compute_options.max_iterations = 1000;
+		compute_options.verbose = false;
+		compute_options.number_of_threads = 1;
+
+		Staex::Move computer_move = MCTS::compute_move(staex, compute_options);
+		std::cout << "computer_move:" << computer_move << std::endl;
+
 		return 0;
 	}
 }
