@@ -49,7 +49,7 @@ extern "C" {
 		Staex staex(2, board_size, board);
 
 		MCTS::ComputeOptions compute_options;
-		compute_options.max_iterations = 100000;
+		compute_options.max_iterations = 75000;
 		compute_options.verbose = false;
 		compute_options.number_of_threads = 1;
 

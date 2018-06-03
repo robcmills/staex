@@ -8,7 +8,7 @@ import './status.css'
 
 const BottomStatus = ({ winner }) =>
 	<div className={cn('bottom', 'status')}>
-		{!!winner && `Player ${winner} wins`}
+		{!!winner && `${winner === 1 ? 'You win!' : 'Computer wins'}`}
 	</div>
 
 export default magicConnect({

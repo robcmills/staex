@@ -10,7 +10,7 @@
 }
 
 .player1Score {
-	color: brown;
+	color: chocolate;
 }
 .player2Score {
 	color: green;
@@ -26,4 +26,31 @@
 }
 .bottom {
 	bottom: 0;
+}
+
+.hidden-dots {
+	opacity: 0;
+}
+
+.dot {
+	animation-duration: 1s;
+	animation-name: cycle;
+	animation-iteration-count: infinite;
+	color: green;
+}
+
+.dot2 {
+	animation-delay: 0.33s;
+}
+.dot3 {
+	animation-delay: 0.66s;
+}
+
+@keyframes cycle {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
 }

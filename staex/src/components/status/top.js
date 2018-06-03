@@ -13,13 +13,22 @@ import './status.css'
 
 const TopStatus = ({ activePlayer, player1Score, player2Score, winner }) =>
 	<div className={cn('top', 'status')}>
+		{activePlayer === 2 && !(winner) &&
+			<span className="hidden-dots">...&nbsp;</span>}
 		<span className={cn('player1Score', { active: !winner && activePlayer === 1 })}>
-			{player1Score}
+			HUM:{player1Score}
 		</span>
-		{' - '}
+		&nbsp;{' - '}&nbsp;
 		<span className={cn('player2Score', { active: !winner && activePlayer === 2 })}>
-			{player2Score}
+			{player2Score}:COM
 		</span>
+		{activePlayer === 2 && !(winner) &&
+			<span>
+				&nbsp;
+				<span className="dot dot1">.</span>
+				<span className="dot dot2">.</span>
+				<span className="dot dot3">.</span>
+			</span>}
 	</div>
 
 export default magicConnect({
