@@ -24,8 +24,6 @@ extern "C" {
 		int index_length = (board_size * board_size) - 1;
 		int p1_token_index = index_length - log2(p1_token);
 		int p2_token_index = index_length - log2(p2_token);
-		std::cout << "p1_token_index:" << p1_token_index << std::endl;
-		std::cout << "p2_token_index:" << p2_token_index << std::endl;
 
 		for (int y=0; y<board_size; ++y) {
 			for (int x=0; x<board_size; ++x) {
@@ -35,6 +33,12 @@ extern "C" {
 					board[y][x].token = 1;
 				} else if (i == p2_token_index) {
 					board[y][x].token = 2;
+				}
+				int square_mask = int(pow(2, index_length - i));
+				if (square_mask & p1_squares) {
+					board[y][x].owner = 1;
+				} else if (square_mask & p2_squares) {
+					board[y][x].owner = 2;
 				}
 			}
 		}
