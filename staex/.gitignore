@@ -1,6 +1,5 @@
-# user
-/public/*.em.js
-/public/*.em.wasm
+# emscripten compiled wasm
+/public/staex.em.*
 
 # dependencies
 /node_modules

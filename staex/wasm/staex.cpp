@@ -4,7 +4,7 @@
 #include "staex.h"
 
 extern "C" {
-	int compute_move(
+	int safe_compute_move(
 		int board_size,
 		int p1_squares,
 		int p2_squares,
@@ -49,7 +49,7 @@ extern "C" {
 		Staex staex(2, board_size, board);
 
 		MCTS::ComputeOptions compute_options;
-		compute_options.max_iterations = 75000;
+		compute_options.max_iterations = 50000;
 		compute_options.verbose = false;
 		compute_options.number_of_threads = 1;
 
@@ -63,4 +63,29 @@ extern "C" {
 
 		return computer_move_int;
 	}
+
+	int compute_move(
+		int board_size,
+		int p1_squares,
+		int p2_squares,
+		int p1_token,
+		int p2_token,
+		int* heights
+	) {
+		int result = 0;
+		try {
+			result = safe_compute_move(
+				board_size,
+				p1_squares,
+				p2_squares,
+				p1_token,
+				p2_token,
+				heights
+			);
+		} catch (std::runtime_error& error) {
+			std::cerr << "ERROR: " << error.what() << std::endl;
+			return 0;
+		}
+		return result;
+	};
 }
