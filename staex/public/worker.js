@@ -58,7 +58,7 @@ Module.onRuntimeInitialized = function() {
 		const typedArray = new Int32Array(squareHeights)
 		const heapBytes = _arrayToHeap(typedArray)
 		const result = Module.ccall(
-			'compute_move',
+			'safe_compute_move',
 			'number', // return type
 			['number', 'number', 'number', 'number', 'number', 'number'], // argument types
 			[

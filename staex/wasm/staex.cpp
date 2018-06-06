@@ -4,7 +4,7 @@
 #include "staex.h"
 
 extern "C" {
-	int safe_compute_move(
+	int compute_move(
 		int board_size,
 		int p1_squares,
 		int p2_squares,
@@ -64,7 +64,7 @@ extern "C" {
 		return computer_move_int;
 	}
 
-	int compute_move(
+	int safe_compute_move(
 		int board_size,
 		int p1_squares,
 		int p2_squares,
@@ -74,7 +74,7 @@ extern "C" {
 	) {
 		int result = 0;
 		try {
-			result = safe_compute_move(
+			result = compute_move(
 				board_size,
 				p1_squares,
 				p2_squares,

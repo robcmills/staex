@@ -11,5 +11,5 @@ em++ \
 	-s STACK_OVERFLOW_CHECK=2 \
 	-s DISABLE_EXCEPTION_CATCHING=0 \
 	-s WASM=1 \
-	-s EXPORTED_FUNCTIONS="['_compute_move']" \
+	-s EXPORTED_FUNCTIONS="['_safe_compute_move']" \
 	-s EXTRA_EXPORTED_RUNTIME_METHODS="['ccall']"
