@@ -1,4 +1,5 @@
-import { bitBoard as b } from './helpers'
+const { bitBoard } = require('./helpers')
+const b = bitBoard
 
 /*
  0  1  2  3
@@ -7,7 +8,7 @@ import { bitBoard as b } from './helpers'
 12 13 14 15
 */
 
-export default {
+module.exports = {
 	activePlayer: 1,
 	player1Squares: b('0000 0000 0000 0000'),
 	player2Squares: b('0000 0000 0010 0000'),

@@ -1,40 +1,40 @@
-import { createSelector } from 'reselect'
+const { createSelector } = require('reselect')
 
-import {
+const {
 	ADJACENT_SQUARES_MAP,
 	binaryToCartesianArray,
 	TOKEN_TARGETS_MAP,
 	WIN_SCORE,
-} from './constants'
-import { not, toString16 } from './helpers'
+} = require('./constants')
+const { not, toString16 } = require('./helpers')
 
-export const activePlayerSelector = ({ activePlayer }) => activePlayer
+const activePlayerSelector = ({ activePlayer }) => activePlayer
 
-export const player1TokenSelector = ({ player1Token }) => player1Token
-export const player2TokenSelector = ({ player2Token }) => player2Token
+const player1TokenSelector = ({ player1Token }) => player1Token
+const player2TokenSelector = ({ player2Token }) => player2Token
 
-export const player1TokenStringSelector = createSelector(
+const player1TokenStringSelector = createSelector(
 	player1TokenSelector,
 	player1Token => toString16(player1Token)
 )
-export const player2TokenStringSelector = createSelector(
+const player2TokenStringSelector = createSelector(
 	player2TokenSelector,
 	player2Token => toString16(player2Token)
 )
 
-export const player1SquaresSelector = ({ player1Squares }) => player1Squares
-export const player2SquaresSelector = ({ player2Squares }) => player2Squares
+const player1SquaresSelector = ({ player1Squares }) => player1Squares
+const player2SquaresSelector = ({ player2Squares }) => player2Squares
 
-export const player1SquaresStringSelector = createSelector(
+const player1SquaresStringSelector = createSelector(
 	player1SquaresSelector,
 	player1Squares => toString16(player1Squares)
 )
-export const player2SquaresStringSelector = createSelector(
+const player2SquaresStringSelector = createSelector(
 	player2SquaresSelector,
 	player2Squares => toString16(player2Squares)
 )
 
-export const stackTargetsSelector = createSelector(
+const stackTargetsSelector = createSelector(
 	activePlayerSelector,
 	player1TokenSelector,
 	player2TokenSelector,
@@ -55,7 +55,7 @@ export const stackTargetsSelector = createSelector(
 	}
 )
 
-export const ownerSelector = createSelector(
+const ownerSelector = createSelector(
 	player1SquaresStringSelector,
 	player2SquaresStringSelector,
 	(state, { index }) => index,
@@ -70,15 +70,15 @@ export const ownerSelector = createSelector(
 	}
 )
 
-export const squareHeightsSelector = ({ squareHeights }) => squareHeights
+const squareHeightsSelector = ({ squareHeights }) => squareHeights
 
-export const heightSelector = createSelector(
+const heightSelector = createSelector(
 	squareHeightsSelector,
 	(state, { index }) => index,
 	(heights, index) => heights[index]
 )
 
-export const tokensSelector = createSelector(
+const tokensSelector = createSelector(
 	player1TokenStringSelector,
 	player2TokenStringSelector,
 	(player1TokenString, player2TokenString) => [
@@ -87,7 +87,7 @@ export const tokensSelector = createSelector(
 	]
 )
 
-export const tokenTargetsSelector = createSelector(
+const tokenTargetsSelector = createSelector(
 	activePlayerSelector,
 	player1TokenSelector,
 	player2TokenSelector,
@@ -102,7 +102,7 @@ export const tokenTargetsSelector = createSelector(
 	}
 )
 
-export const tokenTargetsArraySelector = createSelector(
+const tokenTargetsArraySelector = createSelector(
 	tokenTargetsSelector,
 	activePlayerSelector,
 	(tokenTargets, activePlayer) => {
@@ -113,21 +113,21 @@ export const tokenTargetsArraySelector = createSelector(
 	}
 )
 
-export const player1ScoreSelector = createSelector(
+const player1ScoreSelector = createSelector(
 	player1SquaresStringSelector,
 	squareHeightsSelector,
 	(player1SquaresString, heights) => heights.reduce((acc, height, index) =>
 		player1SquaresString[index] === '1' ? acc + heights[index] : acc, 0)
 )
 
-export const player2ScoreSelector = createSelector(
+const player2ScoreSelector = createSelector(
 	player2SquaresStringSelector,
 	squareHeightsSelector,
 	(player2SquaresString, heights) => heights.reduce((acc, height, index) =>
 		player2SquaresString[index] === '1' ? acc + heights[index] : acc, 0)
 )
 
-export const possibleMovesSelector = createSelector(
+const possibleMovesSelector = createSelector(
 	stackTargetsSelector,
 	tokenTargetsSelector,
 	(stackTargets, tokenTargets) => [
@@ -142,7 +142,7 @@ export const possibleMovesSelector = createSelector(
 	].map(({ type, index }) => ({ type, payload: { index } })),
 )
 
-export const winnerSelector = createSelector(
+const winnerSelector = createSelector(
 	player1ScoreSelector,
 	player2ScoreSelector,
 	(player1Score, player2Score) => {
@@ -155,3 +155,26 @@ export const winnerSelector = createSelector(
 		return 0
 	}
 )
+
+module.exports = {
+	activePlayerSelector,
+	player1TokenSelector,
+	player2TokenSelector,
+	player1TokenStringSelector,
+	player2TokenStringSelector,
+	player1SquaresSelector,
+	player2SquaresSelector,
+	player1SquaresStringSelector,
+	player2SquaresStringSelector,
+	stackTargetsSelector,
+	ownerSelector,
+	squareHeightsSelector,
+	heightSelector,
+	tokensSelector,
+	tokenTargetsSelector,
+	tokenTargetsArraySelector,
+	player1ScoreSelector,
+	player2ScoreSelector,
+	possibleMovesSelector,
+	winnerSelector,
+}

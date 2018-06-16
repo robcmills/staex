@@ -1,5 +1,5 @@
-import _ from 'lodash'
-import Game from './game'
+const _ = require('lodash')
+const Game = require('./game')
 
 function getRandom(length) {
 	return Math.floor(Math.random() * length)
@@ -132,4 +132,4 @@ class MCTS {
 	}
 }
 
-export default MCTS
+module.exports = MCTS

@@ -1,10 +1,10 @@
-import {
+const {
 	possibleMovesSelector,
 	winnerSelector,
-} from '../redux/selectors'
-import handlers from '../redux/handlers'
+} = require('../redux/selectors')
+const handlers = require('../redux/handlers')
 
-export default class Game {
+module.exports = class Game {
 	constructor({ initialState }) {
 		this.state = initialState
 	}

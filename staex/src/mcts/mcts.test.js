@@ -1,13 +1,16 @@
-import Game from './game'
-import MCTS from '.'
-import initialState from '../redux/initial-state'
+const Game = require('./game')
+const MCTS = require('.')
+const initialState = require('../redux/initial-state')
 
-fit('selectMove', () => {
+const testSelectMove = () => {
 	const game = new Game({ initialState })
-	const mcts = new MCTS({ game, rounds: 100000, timeout: 110000 })
+	const mcts = new MCTS({ game, rounds: 1000, timeout: 10000 })
 	const start = new Date()
 	const move = mcts.getMove()
+	console.log('move', move)
 	const end = new Date()
 	const elapsed = end - start
 	console.log('elapsed', elapsed, 'ms')
-})
+}
+
+testSelectMove()

@@ -1,6 +1,6 @@
-import { not, setCharAt } from './helpers'
+const { not, setCharAt } = require('./helpers')
 
-export default {
+module.exports = {
 	STACK: (state, { index }) => {
 		const activePlayer = state.activePlayer
 		const activePlayerKey = `player${activePlayer}Squares`
