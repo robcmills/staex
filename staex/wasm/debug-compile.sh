@@ -5,6 +5,7 @@ em++ \
 	staex.cpp \
 	-std=c++11 \
 	-g4 \
+	-s DEMANGLE_SUPPORT=1 \
 	-s ALLOW_MEMORY_GROWTH=1 \
 	-s ASSERTIONS=2 \
 	-s SAFE_HEAP=1 \
