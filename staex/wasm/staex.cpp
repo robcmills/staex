@@ -29,7 +29,7 @@ extern "C" {
 
 		StaexState const staex_state = {
 			2, // active_player
-			9, // game_end_score
+			10, // game_end_score
 			p1_squares, // player1_squares
 			p1_token, // player1_token
 			p2_squares, // player2_squares
@@ -37,9 +37,10 @@ extern "C" {
 			heights_vector
 		};
 		Staex staex(staex_state, &pow_map, &adjacents_map, &moves_map);
-		MCTS::MCTS mcts(10000, staex);
+		MCTS::MCTS mcts(100, staex);
 
 		int const action = mcts.get_action();
+		cout << mcts.root_node.tree_to_string(1) << endl;
 		// Convert action to ascending index
 		int const ascending_action = action > 0
 			? board_length - action + 1

@@ -32,7 +32,7 @@ class Node {
 		void add_children();
 		Node* get_random_child(std::mt19937_64* random_engine);
 		std::string to_string() const;
-		std::string tree_to_string(int depth = 1) const;
+		std::string tree_to_string(int max_depth, int current_depth) const;
 };
 
 Node::Node(
@@ -86,13 +86,14 @@ std::string Node::to_string() const {
 	return ss.str();
 }
 
-std::string Node::tree_to_string(int depth) const {
+std::string Node::tree_to_string(int max_depth = 0, int current_depth = 1) const {
 	std::stringstream ss;
 	ss << to_string();
+	if (max_depth > 0 && current_depth > max_depth) { return ss.str(); }
 	for (auto child: children) {
 		ss << endl;
-		for (int i = 0; i < depth; ++i) { ss << "  "; }
-		ss << child->tree_to_string(depth + 1);
+		for (int i = 0; i < current_depth; ++i) { ss << "  "; }
+		ss << child->tree_to_string(max_depth, current_depth + 1);
 	}
 	return ss.str();
 }
@@ -169,7 +170,7 @@ void MCTS::playout() {
 }
 
 void MCTS::propagate() {
-	while (current_node->parent != nullptr && should_continue()) {
+	while (current_node != nullptr && should_continue()) {
 		current_node->visits++;
 		if (current_node->staex.state.active_player != current_winner) {
 			current_node->wins++;

@@ -32,7 +32,7 @@ int compute_move(
 
 	StaexState const staex_state = {
 		2, // active_player
-		9, // game_end_score
+		10, // game_end_score
 		p1_squares, // player1_squares
 		p1_token, // player1_token
 		p2_squares, // player2_squares
@@ -40,9 +40,10 @@ int compute_move(
 		heights_vector
 	};
 	Staex staex(staex_state, &pow_map, &adjacents_map, &moves_map);
-	MCTS::MCTS mcts(1, staex);
+	MCTS::MCTS mcts(1000, staex);
 
 	int const action = mcts.get_action();
+	cout << mcts.root_node.tree_to_string(1) << endl;
 	cout << "action: " << action << endl;
 	// Convert action to ascending index
 	int const ascending_action = action > 0
