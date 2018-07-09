@@ -11,6 +11,16 @@ std::map<int,int> build_pow_map(int length) {
 	return pow_map;
 }
 
+bool is_valid_coord(int x, int y, int board_size) {
+	if (x < 0 || x >= board_size) {
+		return false;
+	}
+	if (y < 0 || y >= board_size) {
+		return false;
+	}
+	return true;
+}
+
 std::map<int,int> build_adjacents_map(int size, std::map<int,int>* pow_map) {
 	int length = size * size;
 	std::map<int,int> adjacents_map;
@@ -25,9 +35,11 @@ std::map<int,int> build_adjacents_map(int size, std::map<int,int>* pow_map) {
 		int target_x = (length - 1 - i) % size;
 		int adjacent_squares = 0;
 		for (int a=0; a<5; ++a) {
-			int target_index = (adjacents[a][0] + target_x) +
-				((adjacents[a][1] + target_y) * size);
-			adjacent_squares |= (*pow_map)[target_index];
+			int x = adjacents[a][0] + target_x;
+			int y = adjacents[a][1] + target_y;
+			if (is_valid_coord(x, y, size)) {
+				adjacent_squares |= (*pow_map)[x + y * size];
+			}
 		}
 		int key = (*pow_map)[length - i - 1];
 		int value = adjacent_squares & length_mask;
