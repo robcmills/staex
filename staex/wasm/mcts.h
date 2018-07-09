@@ -55,9 +55,9 @@ void Node::update_ucb() {
 		parent->visits < 2
 	) { return; }
 
-	float exploitation = wins / visits;
-	float exploration = sqrt(C * log(parent->visits) / visits);
-	ucb = exploitation + exploration;
+	float exploitation = float(wins) / float(visits);
+	float exploration = sqrt(C * log(float(parent->visits)) / float(visits));
+	ucb = float(exploitation) + float(exploration);
 }
 
 void Node::add_children() {
