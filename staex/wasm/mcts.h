@@ -44,20 +44,17 @@ Node::Node(
 	parent(parent_),
 	staex(staex_),
 	visits(0),
-	wins(0)
-{
-	update_ucb();
-}
+	wins(0),
+	ucb(FLOAT_INFINITY)
+{}
 
 void Node::update_ucb() {
-	if (visits == 0) {
-		ucb = FLOAT_INFINITY;
-		return;
-	}
-	if (parent == nullptr || parent->visits == 0) {
-		ucb = 0;
-		return;
-	}
+	if (
+		visits == 0 ||
+		parent == nullptr ||
+		parent->visits < 2
+	) { return; }
+
 	float exploitation = wins / visits;
 	float exploration = sqrt(C * log(parent->visits) / visits);
 	ucb = exploitation + exploration;

@@ -37,7 +37,7 @@ extern "C" {
 			heights_vector
 		};
 		Staex staex(staex_state, &pow_map, &adjacents_map, &moves_map);
-		MCTS::MCTS mcts(100, staex);
+		MCTS::MCTS mcts(1000, staex);
 
 		int const action = mcts.get_action();
 		cout << mcts.root_node.tree_to_string(1) << endl;
