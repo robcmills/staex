@@ -11,10 +11,10 @@
 }
 
 .player1Score {
-	color: chocolate;
+	color: #f49100;
 }
 .player2Score {
-	color: green;
+	color: #ad7bfb;
 }
 
 .active {

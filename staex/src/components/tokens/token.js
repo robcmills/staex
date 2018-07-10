@@ -7,7 +7,8 @@ const Token = ({ owner, squareSize, x, y }) =>
 	<div
 		className="token"
 		style={{
-			background: playerColors[owner].token,
+			background: playerColors[owner].tokenFill,
+			border: playerColors[owner].tokenBorder,
 			height: `${squareSize * 0.4}px`,
 			width: `${squareSize * 0.4}px`,
 			left: `${squareSize * x + squareSize * 0.36}px`,

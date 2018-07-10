@@ -1,6 +1,6 @@
 
 .stackTarget {
-	background: antiquewhite;
+	background: #343434;
 	position: absolute;
 	display: flex;
 }
@@ -10,13 +10,13 @@
 
 .innerStackTarget {
 	align-items: center;
-	border: 2px dashed dimgray;
+	border: 2px dashed white;
 	display: flex;
 	flex: 1 1 auto;
 	justify-content: center;
 }
 .innerStackTarget:hover {
-	border: 2px solid dimgray;
+	border: 2px solid white;
 	opacity: 1;
 	z-index: 1;
 }
@@ -25,10 +25,10 @@
 }
 
 .player1StackTarget:hover {
-	background: burlywood;
+	background: #f49100;
 }
 .player2StackTarget:hover {
-	background: darkseagreen;
+	background: #ad7bfb;
 }
 
 .stackTargetHeight {

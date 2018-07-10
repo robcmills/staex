@@ -20,7 +20,7 @@ const TopStatus = ({ activePlayer, player1Score, player2Score, winner }) =>
 		</span>
 		&nbsp;{' - '}&nbsp;
 		<span className={cn('player2Score', { active: !winner && activePlayer === 2 })}>
-			{player2Score}:COM
+			COM:{player2Score}
 		</span>
 		{activePlayer === 2 && !(winner) &&
 			<span>

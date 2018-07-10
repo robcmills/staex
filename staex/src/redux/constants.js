@@ -50,11 +50,13 @@ const TOKEN_TARGETS_MAP = {
 
 const playerColors = {
 	1: {
-		token: 'bisque',
+		tokenFill: '#f49100',
+		tokenBorder: '2px solid black',
 		square: 'burlywood',
 	},
 	2: {
-		token: 'lightgreen',
+		tokenFill: '#ad7bfb',
+		tokenBorder: '2px solid black',
 		square: 'darkseagreen',
 	},
 }

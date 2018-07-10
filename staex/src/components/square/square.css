@@ -1,12 +1,12 @@
 .square {
-	background: antiquewhite;
+	background: #343434;
 	position: absolute;
 	display: flex;
 }
 
 .inner-square {
 	align-items: center;
-	border: 2px solid dimgray;
+	border: 2px solid black;
 	display: flex;
 	flex: 1 1 auto;
 	justify-content: center;
@@ -14,8 +14,8 @@
 }
 
 .player1Square {
-	background-color: burlywood;
+	background-color: #e38502;
 }
 .player2Square {
-	background-color: darkseagreen;
+	background-color: #6408f7;
 }

@@ -1,19 +1,19 @@
 .tokenTarget {
-	border: 2px dashed dimgray;
+	border: 2px dashed white;
 	border-radius: 50%;
-	opacity: 0.5;
 	position: absolute;
 	z-index: 2;
 }
 .tokenTarget:hover {
-	border: 2px solid dimgray;
 	cursor: pointer;
 	opacity: 1;
 }
 
 .player1TokenTarget:hover {
-	background: bisque;
+	background: #f49100;
+	border: 2px solid white;
 }
 .player2TokenTarget:hover {
-	background: lightgreen;
+	background: #ad7bfb;
+	border: 2px solid white;
 }
