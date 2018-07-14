@@ -15,4 +15,5 @@ module.exports = {
 	player1Token: b('0000 0100 0000 0000'),
 	player2Token: b('0000 0000 0010 0000'),
 	squareHeights: [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0],
+	isRuntimeInitialized: false,
 }

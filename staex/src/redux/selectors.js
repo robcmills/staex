@@ -156,6 +156,8 @@ const winnerSelector = createSelector(
 	}
 )
 
+const isRuntimeInitializedSelector = ({ isRuntimeInitialized }) => isRuntimeInitialized
+
 module.exports = {
 	activePlayerSelector,
 	player1TokenSelector,
@@ -177,4 +179,5 @@ module.exports = {
 	player2ScoreSelector,
 	possibleMovesSelector,
 	winnerSelector,
+	isRuntimeInitializedSelector,
 }

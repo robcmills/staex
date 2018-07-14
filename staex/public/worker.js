@@ -21,7 +21,6 @@ function convertGameStateToArgs({
 }
 
 onmessage = function(event) {
-	console.log('worker onmessage event.data (js):', event.data)
 	const args = convertGameStateToArgs(event.data)
 	const result = Module.compute_move(...args)
 	postMessage(result)
@@ -44,9 +43,6 @@ function _freeArray(heapBytes) {
 }
 
 Module.onRuntimeInitialized = function() {
-	console.log('onRuntimeInitialized')
-	// wasm has been loaded, compiled and instantiated
-	// we can now safely invoke exported methods
 	Module['compute_move'] = function(
 		BOARD_SIZE,
 		player1Squares,
@@ -71,6 +67,14 @@ Module.onRuntimeInitialized = function() {
 			] // arguments
 		);
 		_freeArray(heapBytes);
-		return result;
+		const index = Math.abs(result) - 1
+		const action = {
+			type: result > 0 ? 'STACK' : 'MOVE',
+			payload: { index },
+		}
+		return action
 	}
+	// wasm has been loaded, compiled and instantiated
+	// we can now safely invoke exported methods
+	postMessage({ type: 'ON_RUNTIME_INITIALIZED' })
 }

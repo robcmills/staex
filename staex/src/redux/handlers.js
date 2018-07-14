@@ -32,4 +32,10 @@ module.exports = {
 			[key]: val,
 		}
 	},
+	ON_RUNTIME_INITIALIZED: state => {
+		return {
+			...state,
+			isRuntimeInitialized: true,
+		}
+	}
 }
