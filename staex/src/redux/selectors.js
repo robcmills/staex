@@ -158,6 +158,11 @@ const winnerSelector = createSelector(
 
 const isRuntimeInitializedSelector = ({ isRuntimeInitialized }) => isRuntimeInitialized
 
+const boardSizeSelector = createSelector(
+	squareHeightsSelector,
+	squareHeights => Math.floor(Math.sqrt(squareHeights.length))
+)
+
 module.exports = {
 	activePlayerSelector,
 	player1TokenSelector,
@@ -180,4 +185,5 @@ module.exports = {
 	possibleMovesSelector,
 	winnerSelector,
 	isRuntimeInitializedSelector,
+	boardSizeSelector,
 }

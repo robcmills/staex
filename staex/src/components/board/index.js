@@ -12,9 +12,10 @@ import StackTargets from '../stack-targets/'
 import TokenTargets from '../token-targets/'
 import Tokens from '../tokens/'
 
+import magicConnect from '../../redux/magic-connect'
+import { boardSizeSelector } from '../../redux/selectors'
+
 const BOARD_PADDING = 64
-const NUM_FILES = 4
-const NUM_RANKS = 4
 
 class Board extends Component {
 	constructor(props) {
@@ -27,10 +28,11 @@ class Board extends Component {
 
 	render() {
 		const { viewport: { height, width } } = this.state
+		const { boardSize } = this.props
 		const isLandscape = width > height
 		const squareSize = isLandscape ?
-			Math.floor((height - BOARD_PADDING) / NUM_RANKS) :
-			Math.floor((width - BOARD_PADDING) / NUM_FILES)
+			Math.floor((height - BOARD_PADDING) / boardSize) :
+			Math.floor((width - BOARD_PADDING) / boardSize)
 
 		return (
 			<div className="fullscreen">
@@ -38,8 +40,8 @@ class Board extends Component {
 				<div
 					className="board"
 					style={{
-						height: `${squareSize * NUM_RANKS}px`,
-						width: `${squareSize * NUM_FILES}px`,
+						height: `${squareSize * boardSize}px`,
+						width: `${squareSize * boardSize}px`,
 					}}
 				>
 					<Squares size={squareSize} />
@@ -61,4 +63,8 @@ class Board extends Component {
 	}
 }
 
-export default Board
+export default magicConnect({
+	selectors: {
+		boardSize: boardSizeSelector,
+	},
+})(Board)
