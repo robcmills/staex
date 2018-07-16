@@ -1,7 +1,6 @@
 const { createSelector } = require('reselect')
 
 const {
-	ADJACENT_SQUARES_MAP,
 	binaryToCartesianArray,
 	TOKEN_TARGETS_MAP,
 	WIN_SCORE,
@@ -98,10 +97,18 @@ const stackTargetsSelector = createSelector(
 	player2TokenSelector,
 	player1SquaresSelector,
 	player2SquaresSelector,
-	(activePlayer, player1Token, player2Token, player1Squares, player2Squares) => {
+	adjacentSquaresMapSelector,
+	(
+		activePlayer,
+		player1Token,
+		player2Token,
+		player1Squares,
+		player2Squares,
+		adjacentSquaresMap
+	) => {
 		const activePlayerToken = activePlayer === 1 ? player1Token : player2Token
 		const activePlayerSquares = activePlayer === 1 ? player1Squares : player2Squares
-		const adjacentSquares = ADJACENT_SQUARES_MAP[activePlayerToken]
+		const adjacentSquares = adjacentSquaresMap[activePlayerToken]
 		// Exclude squares already owned by player
 		const ownedIntersection = adjacentSquares & activePlayerSquares
 		let stackTargets = adjacentSquares ^ ownedIntersection
