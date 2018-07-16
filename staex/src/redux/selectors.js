@@ -299,6 +299,7 @@ module.exports = {
 	player2TokenSelector,
 	player2TokenStringSelector,
 	possibleMovesSelector,
+	powerMapSelector,
 	ranksMapSelector,
 	squareHeightsSelector,
 	stackTargetsSelector,

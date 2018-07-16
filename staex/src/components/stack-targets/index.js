@@ -6,15 +6,17 @@ import StackTarget from '../stack-target/'
 import magicConnect from '../../redux/magic-connect'
 import {
 	activePlayerSelector,
+	powerMapSelector,
 	stackTargetsSelector,
 	winnerSelector,
 } from '../../redux/selectors'
 
-import { indexToCoord, toString16 } from '../../redux/helpers'
+import { indexToCoord } from '../../redux/helpers'
 
 const StackTargets = ({
 	activePlayer,
 	boardSize,
+	powerMap,
 	squareSize,
 	stackTargets,
 	winner,
@@ -22,7 +24,7 @@ const StackTargets = ({
 	activePlayer === 1 && !winner &&
 	_.range(0, boardSize * boardSize)
 	.map(index =>
-		toString16(stackTargets)[index] === '1' ?
+		stackTargets & powerMap[boardSize * boardSize - index - 1] ?
 			<StackTarget
 				{...indexToCoord({ boardSize, index })}
 				size={squareSize}
@@ -35,6 +37,7 @@ const StackTargets = ({
 export default magicConnect({
 	selectors: {
 		activePlayer: activePlayerSelector,
+		powerMap: powerMapSelector,
 		stackTargets: stackTargetsSelector,
 		winner: winnerSelector,
 	},
