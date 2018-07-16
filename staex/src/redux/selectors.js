@@ -2,7 +2,6 @@ const { createSelector } = require('reselect')
 
 const {
 	binaryToCartesianArray,
-	TOKEN_TARGETS_MAP,
 	WIN_SCORE,
 } = require('./constants')
 const { not, toString16 } = require('./helpers')
@@ -150,13 +149,68 @@ const tokensSelector = createSelector(
 	]
 )
 
+const ranksMapSelector = createSelector(
+	boardSizeSelector,
+	powerMapSelector,
+	(boardSize, powerMap) => {
+		const ranksMap = {}
+		for (let y = 0; y < boardSize; y++) {
+			let rankMask = 0
+			for (let x = 0; x < boardSize; x++) {
+				const targetIndex = x + (boardSize - y - 1) * boardSize
+				rankMask |= powerMap[targetIndex]
+			}
+			ranksMap[y] = rankMask
+		}
+		return ranksMap
+	}
+)
+
+const filesMapSelector = createSelector(
+	boardSizeSelector,
+	powerMapSelector,
+	(boardSize, powerMap) => {
+		const filesMap = {}
+		for (let x = 0; x < boardSize; x++) {
+			let fileMask = 0
+			for (let y = 0; y < boardSize; y++) {
+				const targetIndex = (boardSize - x - 1) + y * boardSize
+				fileMask |= powerMap[targetIndex]
+			}
+			filesMap[x] = fileMask
+		}
+		return filesMap
+	}
+)
+
+const movesMapSelector = createSelector(
+	boardSizeSelector,
+	powerMapSelector,
+	ranksMapSelector,
+	filesMapSelector,
+	(boardSize, powerMap, ranksMap, filesMap) => {
+		const length = boardSize * boardSize
+		const movesMap = {}
+		for (let i = 0; i < length; i++) {
+			const x = (length - 1 - i) % boardSize
+			const y = Math.floor((length - 1 - i) / boardSize)
+			const key = powerMap[i]
+			const value = filesMap[x] ^ ranksMap[y]
+			movesMap[key] = value
+		}
+		return movesMap
+	}
+)
+
+
 const tokenTargetsSelector = createSelector(
 	activePlayerSelector,
 	player1TokenSelector,
 	player2TokenSelector,
-	(activePlayer, player1Token, player2Token) => {
+	movesMapSelector,
+	(activePlayer, player1Token, player2Token, movesMap) => {
 		const activePlayerToken = activePlayer === 1 ? player1Token : player2Token
-		let tokenTargets = TOKEN_TARGETS_MAP[activePlayerToken]
+		let tokenTargets = movesMap[activePlayerToken]
 		// Exclude squares occupied by opponent token
 		const opponentToken = activePlayer === 1 ? player2Token : player1Token
 		tokenTargets = tokenTargets & not(opponentToken)
@@ -225,8 +279,10 @@ module.exports = {
 	activePlayerSelector,
 	adjacentSquaresMapSelector,
 	boardSizeSelector,
+	filesMapSelector,
 	heightSelector,
 	isRuntimeInitializedSelector,
+	movesMapSelector,
 	ownerSelector,
 	player1ScoreSelector,
 	player1SquaresSelector,
@@ -239,6 +295,7 @@ module.exports = {
 	player2TokenSelector,
 	player2TokenStringSelector,
 	possibleMovesSelector,
+	ranksMapSelector,
 	squareHeightsSelector,
 	stackTargetsSelector,
 	tokensSelector,
