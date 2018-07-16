@@ -22,13 +22,6 @@ const ADJACENT_SQUARES_MAP = {
 	[b('0000 0000 0000 0001')]: b('0000 0000 0001 0011'),
 }
 
-const binaryToCartesianArray = [
-	{x:0,y:3},{x:1,y:3},{x:2,y:3},{x:3,y:3},
-	{x:0,y:2},{x:1,y:2},{x:2,y:2},{x:3,y:2},
-	{x:0,y:1},{x:1,y:1},{x:2,y:1},{x:3,y:1},
-	{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:3,y:0},
-]
-
 const TOKEN_TARGETS_MAP = {
 	[b('1000 0000 0000 0000')]: b('0111 1000 1000 1000'),
 	[b('0100 0000 0000 0000')]: b('1011 0100 0100 0100'),
@@ -60,6 +53,13 @@ const playerColors = {
 		square: 'darkseagreen',
 	},
 }
+
+const binaryToCartesianArray = [
+	{x:0,y:3},{x:1,y:3},{x:2,y:3},{x:3,y:3},
+	{x:0,y:2},{x:1,y:2},{x:2,y:2},{x:3,y:2},
+	{x:0,y:1},{x:1,y:1},{x:2,y:1},{x:3,y:1},
+	{x:0,y:0},{x:1,y:0},{x:2,y:0},{x:3,y:0},
+]
 
 module.exports = {
 	WIN_SCORE,

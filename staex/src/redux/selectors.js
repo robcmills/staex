@@ -1,10 +1,8 @@
+const _ = require('lodash')
 const { createSelector } = require('reselect')
 
-const {
-	binaryToCartesianArray,
-	WIN_SCORE,
-} = require('./constants')
-const { not, toString16 } = require('./helpers')
+const { WIN_SCORE } = require('./constants')
+const { not, toString16, indexToCoord } = require('./helpers')
 
 const activePlayerSelector = ({ activePlayer }) => activePlayer
 
@@ -141,12 +139,16 @@ const heightSelector = createSelector(
 )
 
 const tokensSelector = createSelector(
+	boardSizeSelector,
 	player1TokenStringSelector,
 	player2TokenStringSelector,
-	(player1TokenString, player2TokenString) => [
-		{ ...binaryToCartesianArray[player1TokenString.indexOf('1')], owner: 1 },
-		{ ...binaryToCartesianArray[player2TokenString.indexOf('1')], owner: 2 },
-	]
+	(boardSize, player1TokenString, player2TokenString) => [{
+		...indexToCoord({ boardSize, index: player1TokenString.indexOf('1') }),
+		owner: 1,
+	}, {
+		...indexToCoord({ boardSize, index: player2TokenString.indexOf('1') }),
+		owner: 2,
+	}]
 )
 
 const ranksMapSelector = createSelector(
@@ -220,11 +222,13 @@ const tokenTargetsSelector = createSelector(
 )
 
 const tokenTargetsArraySelector = createSelector(
+	boardSizeSelector,
 	tokenTargetsSelector,
 	activePlayerSelector,
-	(tokenTargets, activePlayer) => {
+	(boardSize, tokenTargets, activePlayer) => {
 		const tokenTargetsString = toString16(tokenTargets)
-		return binaryToCartesianArray
+		return _.range(0, boardSize * boardSize)
+			.map(index => indexToCoord({ boardSize, index }))
 			.map((target, index) => ({ ...target, index, owner: activePlayer }))
 			.filter((coord, index) => tokenTargetsString[index] === '1')
 	}
