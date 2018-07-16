@@ -44,8 +44,8 @@ class Board extends Component {
 						width: `${squareSize * boardSize}px`,
 					}}
 				>
-					<Squares size={squareSize} />
-					<StackTargets size={squareSize} />
+					<Squares squareSize={squareSize} boardSize={boardSize} />
+					<StackTargets squareSize={squareSize} boardSize={boardSize} />
 					<TokenTargets squareSize={squareSize} />
 					<Tokens squareSize={squareSize} />
 				</div>

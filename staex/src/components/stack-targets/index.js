@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 
 import StackTarget from '../stack-target/'
 
@@ -9,14 +10,25 @@ import {
 	winnerSelector,
 } from '../../redux/selectors'
 
-import { binaryToCartesianArray } from '../../redux/constants'
-import { toString16 } from '../../redux/helpers'
+import { indexToCoord, toString16 } from '../../redux/helpers'
 
-const StackTargets = ({ activePlayer, size, stackTargets, winner }) =>
+const StackTargets = ({
+	activePlayer,
+	boardSize,
+	squareSize,
+	stackTargets,
+	winner,
+}) =>
 	activePlayer === 1 && !winner &&
-	binaryToCartesianArray.map((coord, index) =>
+	_.range(0, boardSize * boardSize)
+	.map(index =>
 		toString16(stackTargets)[index] === '1' ?
-			<StackTarget {...coord} size={size} key={index} index={index} /> :
+			<StackTarget
+				{...indexToCoord({ boardSize, index })}
+				size={squareSize}
+				key={index}
+				index={index}
+			/> :
 			null
 	)
 
