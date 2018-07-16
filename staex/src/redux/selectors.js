@@ -34,6 +34,64 @@ const player2SquaresStringSelector = createSelector(
 	player2Squares => toString16(player2Squares)
 )
 
+const squareHeightsSelector = ({ squareHeights }) => squareHeights
+
+const boardSizeSelector = createSelector(
+	squareHeightsSelector,
+	squareHeights => Math.floor(Math.sqrt(squareHeights.length))
+)
+
+const powerMapSelector = createSelector(
+	squareHeightsSelector,
+	squareHeights => {
+		const powerMap = {}
+		for (let i = 0; i < squareHeights.length; i++) {
+			powerMap[i] = Math.pow(2, i)
+		}
+		return powerMap
+	}
+)
+
+function isValidCoord({ x, y, boardSize }) {
+	if (x < 0 || x >= boardSize) {
+		return false;
+	}
+	if (y < 0 || y >= boardSize) {
+		return false;
+	}
+	return true;
+}
+
+const adjacentSquaresMapSelector = createSelector(
+	boardSizeSelector,
+	powerMapSelector,
+	(boardSize, powerMap) => {
+		const length = boardSize * boardSize
+		const adjacentsMap = {}
+		const adjacents = [ [-1,0], [1,0], [0,0], [0,1], [0,-1] ]
+		let lengthMask = 1
+		for (let i = 0; i < length; i++) {
+			lengthMask |= powerMap[i]
+		}
+		for (let i = 0; i < length; i++) {
+			const targetY = Math.floor((length - 1 - i) / boardSize)
+			const targetX = (length - 1 - i) % boardSize
+			let adjacentSquares = 0
+			for (let a = 0; a < 5; a++) {
+				const x = adjacents[a][0] + targetX
+				const y = adjacents[a][1] + targetY
+				if (isValidCoord({ x, y, boardSize })) {
+					adjacentSquares |= powerMap[x + y * boardSize]
+				}
+			}
+			const key = powerMap[length - i - 1]
+			const value = adjacentSquares & lengthMask
+			adjacentsMap[key] = value
+		}
+		return adjacentsMap;
+	}
+)
+
 const stackTargetsSelector = createSelector(
 	activePlayerSelector,
 	player1TokenSelector,
@@ -69,8 +127,6 @@ const ownerSelector = createSelector(
 		return 0
 	}
 )
-
-const squareHeightsSelector = ({ squareHeights }) => squareHeights
 
 const heightSelector = createSelector(
 	squareHeightsSelector,
@@ -158,32 +214,28 @@ const winnerSelector = createSelector(
 
 const isRuntimeInitializedSelector = ({ isRuntimeInitialized }) => isRuntimeInitialized
 
-const boardSizeSelector = createSelector(
-	squareHeightsSelector,
-	squareHeights => Math.floor(Math.sqrt(squareHeights.length))
-)
-
 module.exports = {
 	activePlayerSelector,
-	player1TokenSelector,
-	player2TokenSelector,
-	player1TokenStringSelector,
-	player2TokenStringSelector,
-	player1SquaresSelector,
-	player2SquaresSelector,
-	player1SquaresStringSelector,
-	player2SquaresStringSelector,
-	stackTargetsSelector,
-	ownerSelector,
-	squareHeightsSelector,
-	heightSelector,
-	tokensSelector,
-	tokenTargetsSelector,
-	tokenTargetsArraySelector,
-	player1ScoreSelector,
-	player2ScoreSelector,
-	possibleMovesSelector,
-	winnerSelector,
-	isRuntimeInitializedSelector,
+	adjacentSquaresMapSelector,
 	boardSizeSelector,
+	heightSelector,
+	isRuntimeInitializedSelector,
+	ownerSelector,
+	player1ScoreSelector,
+	player1SquaresSelector,
+	player1SquaresStringSelector,
+	player1TokenSelector,
+	player1TokenStringSelector,
+	player2ScoreSelector,
+	player2SquaresSelector,
+	player2SquaresStringSelector,
+	player2TokenSelector,
+	player2TokenStringSelector,
+	possibleMovesSelector,
+	squareHeightsSelector,
+	stackTargetsSelector,
+	tokensSelector,
+	tokenTargetsArraySelector,
+	tokenTargetsSelector,
+	winnerSelector,
 }
