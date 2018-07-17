@@ -18,7 +18,7 @@ module.exports = {
 			squareHeights: [
 				...state.squareHeights.slice(0, index),
 				state.squareHeights[index] + 1,
-				...state.squareHeights.slice(index + 1, 16),
+				...state.squareHeights.slice(index + 1, state.squareHeights.length),
 			],
 		}
 	},
