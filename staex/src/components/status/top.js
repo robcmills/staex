@@ -14,8 +14,6 @@ import './status.css'
 
 const TopStatus = ({ activePlayer, player1Score, player2Score, winner, winScore }) =>
 	<div className={cn('top', 'status')}>
-		{activePlayer === 2 && !(winner) &&
-			<span className="hidden-dots">...&nbsp;</span>}
 		<span className={cn('player1Score', { active: !winner && activePlayer === 1 })}>
 			HUM:{player1Score}/{winScore}
 		</span>
@@ -23,13 +21,6 @@ const TopStatus = ({ activePlayer, player1Score, player2Score, winner, winScore 
 		<span className={cn('player2Score', { active: !winner && activePlayer === 2 })}>
 			COM:{player2Score}/{winScore}
 		</span>
-		{activePlayer === 2 && !(winner) &&
-			<span>
-				&nbsp;
-				<span className="dot dot1">.</span>
-				<span className="dot dot2">.</span>
-				<span className="dot dot3">.</span>
-			</span>}
 	</div>
 
 export default magicConnect({
