@@ -222,16 +222,15 @@ const tokenTargetsSelector = createSelector(
 )
 
 const tokenTargetsArraySelector = createSelector(
-	boardSizeSelector,
-	tokenTargetsSelector,
 	activePlayerSelector,
-	(boardSize, tokenTargets, activePlayer) => {
-		const tokenTargetsString = toString16(tokenTargets)
-		return _.range(0, boardSize * boardSize)
+	boardSizeSelector,
+	powerMapSelector,
+	tokenTargetsSelector,
+	(activePlayer, boardSize, powerMap, tokenTargets) =>
+		_.range(0, boardSize * boardSize)
 			.map(index => indexToCoord({ boardSize, index }))
 			.map((target, index) => ({ ...target, index, owner: activePlayer }))
-			.filter((coord, index) => tokenTargetsString[index] === '1')
-	}
+			.filter((coord, index) => tokenTargets & powerMap[boardSize * boardSize - index - 1])
 )
 
 const player1ScoreSelector = createSelector(
