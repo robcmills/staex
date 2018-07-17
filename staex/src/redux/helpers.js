@@ -3,7 +3,7 @@ const bitBoard = binaryString =>
 
 const not = int => parseInt((~int >>> 0).toString(2).slice(16, 32), 2)
 
-const toString16 = int => int.toString(2).padStart(16, 0)
+const binaryToString = (int, width) => int.toString(2).padStart(width, 0)
 
 const setCharAt = (str, index, char) =>
 	str.substr(0, index) + char + str.substr(index + 1)
@@ -23,9 +23,9 @@ const indexToCoord = ({ boardSize, index }) => {
 }
 
 module.exports = {
+	binaryToString,
 	bitBoard,
 	indexToCoord,
 	not,
 	setCharAt,
-	toString16,
 }

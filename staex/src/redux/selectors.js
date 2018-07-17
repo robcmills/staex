@@ -2,7 +2,14 @@ const _ = require('lodash')
 const { createSelector } = require('reselect')
 
 const { WIN_SCORE } = require('./constants')
-const { not, toString16, indexToCoord } = require('./helpers')
+const { not, binaryToString, indexToCoord } = require('./helpers')
+
+const squareHeightsSelector = ({ squareHeights }) => squareHeights
+
+const boardSizeSelector = createSelector(
+	squareHeightsSelector,
+	squareHeights => Math.floor(Math.sqrt(squareHeights.length))
+)
 
 const activePlayerSelector = ({ activePlayer }) => activePlayer
 
@@ -10,31 +17,32 @@ const player1TokenSelector = ({ player1Token }) => player1Token
 const player2TokenSelector = ({ player2Token }) => player2Token
 
 const player1TokenStringSelector = createSelector(
+	boardSizeSelector,
 	player1TokenSelector,
-	player1Token => toString16(player1Token)
+	(boardSize, player1Token) =>
+		binaryToString(player1Token, boardSize * boardSize)
 )
 const player2TokenStringSelector = createSelector(
+	boardSizeSelector,
 	player2TokenSelector,
-	player2Token => toString16(player2Token)
+	(boardSize, player2Token) =>
+		binaryToString(player2Token, boardSize * boardSize)
 )
 
 const player1SquaresSelector = ({ player1Squares }) => player1Squares
 const player2SquaresSelector = ({ player2Squares }) => player2Squares
 
 const player1SquaresStringSelector = createSelector(
+	boardSizeSelector,
 	player1SquaresSelector,
-	player1Squares => toString16(player1Squares)
+	(boardSize, player1Squares) =>
+		binaryToString(player1Squares, boardSize * boardSize)
 )
 const player2SquaresStringSelector = createSelector(
+	boardSizeSelector,
 	player2SquaresSelector,
-	player2Squares => toString16(player2Squares)
-)
-
-const squareHeightsSelector = ({ squareHeights }) => squareHeights
-
-const boardSizeSelector = createSelector(
-	squareHeightsSelector,
-	squareHeights => Math.floor(Math.sqrt(squareHeights.length))
+	(boardSize, player2Squares) =>
+		binaryToString(player2Squares, boardSize * boardSize)
 )
 
 const powerMapSelector = createSelector(
@@ -248,14 +256,15 @@ const player2ScoreSelector = createSelector(
 )
 
 const possibleMovesSelector = createSelector(
+	boardSizeSelector,
 	stackTargetsSelector,
 	tokenTargetsSelector,
-	(stackTargets, tokenTargets) => [
-		...toString16(stackTargets)
+	(boardSize, stackTargets, tokenTargets) => [
+		...binaryToString(stackTargets, boardSize * boardSize)
 			.split('')
 			.map((value, index) => ({ type: 'STACK', index, value }))
 			.filter(({ value }) => value === '1'),
-		...toString16(tokenTargets)
+		...binaryToString(tokenTargets, boardSize * boardSize)
 			.split('')
 			.map((value, index) => ({ type: 'MOVE', index, value }))
 			.filter(({ value }) => value === '1'),
