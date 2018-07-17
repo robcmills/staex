@@ -5,9 +5,6 @@ const not = int => ~int >>> 0
 
 const binaryToString = (int, width) => int.toString(2).padStart(width, 0)
 
-const setCharAt = (str, index, char) =>
-	str.substr(0, index) + char + str.substr(index + 1)
-
 /*
 2 | 0 1 2
 1 | 3 4 5
@@ -27,5 +24,4 @@ module.exports = {
 	bitBoard,
 	indexToCoord,
 	not,
-	setCharAt,
 }

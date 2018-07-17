@@ -1,10 +1,11 @@
-const { not, setCharAt } = require('./helpers')
+const { not } = require('./helpers')
 
 module.exports = {
 	STACK: (state, { index }) => {
+		const length = state.squareHeights.length
 		const activePlayer = state.activePlayer
 		const activePlayerKey = `player${activePlayer}Squares`
-		const mask = parseInt(setCharAt('0000000000000000', index, '1'), 2)
+		const mask = Math.pow(2, length - index - 1)
 		const activePlayerSquares = state[activePlayerKey] | mask
 
 		const inactivePlayerKey = `player${activePlayer === 1 ? 2 : 1}Squares`
@@ -23,9 +24,10 @@ module.exports = {
 		}
 	},
 	MOVE: (state, { index }) => {
+		const length = state.squareHeights.length
 		const activePlayer = state.activePlayer
 		const key = `player${activePlayer}Token`
-		const val = parseInt(setCharAt('0000000000000000', index, '1'), 2)
+		const val = Math.pow(2, length - index - 1)
 		return {
 			...state,
 			activePlayer: state.activePlayer === 1 ? 2 : 1,
