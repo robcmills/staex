@@ -16,4 +16,5 @@ module.exports = {
 	player2Token: b('000 000 001'),
 	squareHeights: [0,0,0, 0,0,0, 0,0,0],
 	isRuntimeInitialized: false,
+	winScore: 10,
 }

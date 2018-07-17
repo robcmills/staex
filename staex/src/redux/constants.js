@@ -1,8 +1,6 @@
 const { bitBoard } = require('./helpers')
 const b = bitBoard
 
-const WIN_SCORE = 10
-
 const ADJACENT_SQUARES_MAP = {
 	[b('1000 0000 0000 0000')]: b('1100 1000 0000 0000'),
 	[b('0100 0000 0000 0000')]: b('1110 0100 0000 0000'),
@@ -55,7 +53,6 @@ const playerColors = {
 }
 
 module.exports = {
-	WIN_SCORE,
 	ADJACENT_SQUARES_MAP,
 	TOKEN_TARGETS_MAP,
 	playerColors,

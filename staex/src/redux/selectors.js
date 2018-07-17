@@ -1,7 +1,6 @@
 const _ = require('lodash')
 const { createSelector } = require('reselect')
 
-const { WIN_SCORE } = require('./constants')
 const { not, binaryToString, indexToCoord } = require('./helpers')
 
 const squareHeightsSelector = ({ squareHeights }) => squareHeights
@@ -271,14 +270,17 @@ const possibleMovesSelector = createSelector(
 	].map(({ type, index }) => ({ type, payload: { index } })),
 )
 
+const winScoreSelector = ({ winScore }) => winScore
+
 const winnerSelector = createSelector(
 	player1ScoreSelector,
 	player2ScoreSelector,
-	(player1Score, player2Score) => {
-		if (player1Score > WIN_SCORE) {
+	winScoreSelector,
+	(player1Score, player2Score, winScore) => {
+		if (player1Score > winScore) {
 			return 1
 		}
-		if (player2Score > WIN_SCORE) {
+		if (player2Score > winScore) {
 			return 2
 		}
 		return 0
@@ -315,4 +317,5 @@ module.exports = {
 	tokenTargetsArraySelector,
 	tokenTargetsSelector,
 	winnerSelector,
+	winScoreSelector,
 }
