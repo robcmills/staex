@@ -1,8 +1,6 @@
 /* eslint-disable no-undef */
 importScripts('staex.em.js')
 
-const BOARD_SIZE = 4
-
 function convertGameStateToArgs({
 	player1Squares,
 	player2Squares,
@@ -11,7 +9,7 @@ function convertGameStateToArgs({
 	squareHeights,
 }) {
 	return [
-		BOARD_SIZE,
+		Math.floor(Math.sqrt(squareHeights.length)), // boardSize
 		player1Squares,
 		player2Squares,
 		player1Token,
@@ -44,7 +42,7 @@ function _freeArray(heapBytes) {
 
 Module.onRuntimeInitialized = function() {
 	Module['compute_move'] = function(
-		BOARD_SIZE,
+		boardSize,
 		player1Squares,
 		player2Squares,
 		player1Token,
@@ -58,7 +56,7 @@ Module.onRuntimeInitialized = function() {
 			'number', // return type
 			['number', 'number', 'number', 'number', 'number', 'number'], // argument types
 			[
-				BOARD_SIZE,
+				boardSize,
 				player1Squares,
 				player2Squares,
 				player1Token,
